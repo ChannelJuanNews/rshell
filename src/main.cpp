@@ -12,6 +12,7 @@
 #include <term.h>
 #include <stdlib.h>
 #include <cstdlib>
+#include <algorithm>
 
 using namespace std;
 
@@ -136,11 +137,10 @@ string containsLogic(char * v) {
 
 template <typename T>
 void pop_front(vector<T> & v){
-	if (v.size() > 1){
-		for ( unsigned i = 1; i < v.size(); i++){
-			v[i-1] = v[i];
-		}
-	}	
+	
+	if (v.size() > 1) {
+		std::rotate(v.begin(),v.begin()+1,v.end());
+	}
 	v.pop_back();
 }	
 
@@ -157,34 +157,77 @@ int divideCommands(vector<char *> & v) {
 	// and captures them in order in a vector
 	for (unsigned i = 0; i < v.size(); i++){
 		output = containsLogic(v.at(i));
-
+		currentCommand.push_back(v.at(i));
+		
 		// if the commands have no connectors then execute the commands and
 		// leave
 		if (output == "no logic"){;
 		} 
+		else if (output == ";"){
+			
+			unsigned moveOver = 0;
+			while(v.at(i)[moveOver] != '\0'){
+				moveOver++;
+			}
+			v.at(i)[moveOver - 1] = v.at(i)[moveOver];
+			//insertAnd(v, i);
+			cout << "This command contians a link" << endl;
+			currentCommand.push_back(v.at(i));
+			pop_front<char*>(v);
+			cout << "After popping off: " << v[0] << endl;
+			executeCommand(currentCommand);
+			divideCommands(v);
+			capturedLogic.push_back(";");
+			return 1;
+		}
 		else { capturedLogic.push_back(output);}
+		
 	}
 	
-	// if no logic has been captured then execute the inputted command
-	if (capturedLogic.size() == 0){ executeCommand(v); return 1;}
+
 	
+	// if no logic has been captured then execute the inputted command
+	if (capturedLogic.size() == 0){
+		executeCommand(v);
+		 return 1;
+	}
+	
+
+	cout << "List of commands: ";
 	// converts the char arrays into vectors of strings
 	for (unsigned index = 0; index < v.size(); index++){
 		commands.push_back(convertChar(v.at(index)));
+		cout << commands.at(index) << " ";
 	}	
-		
-	/*cout << "Total Commands are: " << endl;
-	for (unsigned pr = 0; pr < commands.size(); pr++){
-		cout << commands.at(pr) << " ";
-	}
 	cout << endl;	
-	*/
-	// while the commands are not a logical operator then put those commands into a vector 
-	unsigned x = 0;
-	while (commands.at(x) != "&&" && commands.at(x) != "||" && commands.at(x) != ";"){
+
+	for ( unsigned x = 0; x < commands.size(); x++){
+		
+		if (commands.at(x) == "&&"){
+			break;	
+		}
+		else if (commands.at(x) == "||"){
+			break;
+		}
+	
+		cout << "Command to be added: ";
+		cout << v[x] << endl;
+		if (convertChar(v[x]) == " &&" || convertChar(v[x]) == "||"){
+			currentCommand.pop_back();	
+		} 
 		currentCommand.push_back(v[x]);
 		pop_front<char*>(v);
-		x++;
+		currentCommand.push_back(v[0]);
+		if (convertChar(v[0]) == "&&" || convertChar (v[0]) == "||"){
+			currentCommand.pop_back();
+			
+		}	
+		cout<< "new command at top: " << v[0] << endl;
+	}	
+	
+	cout << "Current Command: ";	
+	for (unsigned cc = 0; cc < currentCommand.size(); cc++){
+		cout << currentCommand[cc];
 	}
 	
 	// puts updated a command array into vector
@@ -195,15 +238,21 @@ int divideCommands(vector<char *> & v) {
 	
 	// executeCommands returns -1 if failed else we are good :)
 	if (commands.at(0) == "&&"){
-		//cout << "Executing root command: " << endl;
+		
 		executeCommand(currentCommand);	
-		//cout << "Cutting off logical operator" << endl;
 		pop_front<char *>(v);
-	
-		//for (unsigned print = 0; print < v.size(); print++){
-		//	cout << v.at(print) << " ";	
-		//}
-		divideCommands(v);	
+		divideCommands(v);
+		return 1;
+	}	
+	if (commands.at(0) == "||") {
+		int status = executeCommand(currentCommand);
+		if (status != -1) {
+			pop_front<char*>(v);
+			pop_front<char*>(v);
+			divideCommands(v);
+			return 1;
+		}
+		else { pop_front<char *>(v); divideCommands(v); return 1;}
 	}
 	
 	return 1;
