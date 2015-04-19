@@ -1,0 +1,22 @@
+VPATH = src
+CFLAGS = -ansi -pedantic -Wall -Werror
+objects = $(addprefic obj/, main.o)
+
+all: $(obects) | bin
+	
+	g++ -o $@ $(objects)
+
+obj/%.o: %.cpp
+	
+	g++ $(CFLAGS) -c -o $@ $<
+
+$(objects): | obj
+
+bin:
+	mkdir bin
+obj:
+
+	mkdir obj
+clean:
+
+	rm -rf obj bin
