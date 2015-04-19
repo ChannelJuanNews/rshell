@@ -72,26 +72,48 @@ void DisplayUserHost() {
 	}	
 }
 
+void executeCommands(vector<char *> & v) {
 
+	// convert vector of char pointers to array of char pointers
+	// Can only store up to 10,000 commands
+	char * argv[10000] = {0};
 
+	for (unsigned i = 0; i < v.size(); i++){
+		argv[i] = v.at(i);
+	}
 
+	int pid = fork();
+	unsigned index = 0;
+	
+	if (pid == -1) {
+		// if fork() returns -1 then there was an error
+		perror("There was an error with fork()");
+		exit(1);
+	}
+	else if (pid == 0) {
+		
+		if (-1 == execvp(argv[index], argv)){
+			perror("There was an error in execvp");	
+		}
+			
+	}
+	// if pid > 0 then we are not in the child process (e.g. parent)
+	else if (pid > 0){
+		
+		if (wait(0) == -1){
+			perror("There was an error with wait() in parent function");
+		}
+	}		
+}
 
+void tokenizeInput(string commands) {
 
-
-
-
-
-
-
-
-
-
-
-void executeCommands(string commands) {
-
+	// supports up to a 9,999 character command/character count of commands
 	char tokenArray[10000]  = { 0 };
 	const char  deliminator[2] =  { ' ' } ;
 	char * token;	
+	vector<char *> v;
+
 	
 	// fills the token array with the entire input
 	unsigned i;
@@ -102,17 +124,16 @@ void executeCommands(string commands) {
 
 	// creates the CONST array to be passed into strtok() function
 
-	// captures the first token
+	// captures the first token and continues until end of string
+	// then stores all of the tokens in a char * vector
 	token = strtok(tokenArray, deliminator);
 	while (token != NULL) {
-
-
-
-
-		cout << token << " ";
+		//cout << token << " ";
+		v.push_back(token);
 		// sends token to be executed
 		token = strtok(NULL, deliminator);
 	}
+	executeCommands(v);
 }
 
 
@@ -130,7 +151,7 @@ int main( int argc, char * argv[] ) {
 		DisplayUserHost();
 		cout << "$ ";		
 		getline(cin,commands);
-		executeCommands (commands);
+		tokenizeInput(commands);
 	}	
 	return 0;	
 }
