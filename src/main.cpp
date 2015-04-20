@@ -171,10 +171,10 @@ int divideCommands(vector<char *> & v) {
 			}
 			v.at(i)[moveOver - 1] = v.at(i)[moveOver];
 			//insertAnd(v, i);
-			cout << "This command contians a link" << endl;
+			//cout << "This command contians a link" << endl;
 			currentCommand.push_back(v.at(i));
 			pop_front<char*>(v);
-			cout << "After popping off: " << v[0] << endl;
+			//cout << "After popping off: " << v[0] << endl;
 			executeCommand(currentCommand);
 			divideCommands(v);
 			capturedLogic.push_back(";");
@@ -193,11 +193,11 @@ int divideCommands(vector<char *> & v) {
 	}
 	
 
-	cout << "List of commands: ";
+	
 	// converts the char arrays into vectors of strings
 	for (unsigned index = 0; index < v.size(); index++){
 		commands.push_back(convertChar(v.at(index)));
-		cout << commands.at(index) << " ";
+		//cout << commands.at(index) << " ";
 	}	
 	cout << endl;	
 
@@ -210,7 +210,7 @@ int divideCommands(vector<char *> & v) {
 			break;
 		}
 	
-		cout << "Command to be added: ";
+		//cout << "Command to be added: ";
 		cout << v[x] << endl;
 		if (convertChar(v[x]) == " &&" || convertChar(v[x]) == "||"){
 			currentCommand.pop_back();	
@@ -222,12 +222,12 @@ int divideCommands(vector<char *> & v) {
 			currentCommand.pop_back();
 			
 		}	
-		cout<< "new command at top: " << v[0] << endl;
+		//cout<< "new command at top: " << v[0] << endl;
 	}	
 	
-	cout << "Current Command: ";	
+	//cout << "Current Command: ";	
 	for (unsigned cc = 0; cc < currentCommand.size(); cc++){
-		cout << currentCommand[cc];
+		//cout << currentCommand[cc];
 	}
 	
 	// puts updated a command array into vector
@@ -301,7 +301,7 @@ int main( int argc, char * argv[] ) {
 	
 	clearScreen();
 	// displays the welcome message
-	rshellMessage();
+	//rshellMessage();
 	string commands;
 	unsigned loopCounter = 0;
 	bool loop = true;	

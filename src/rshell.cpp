@@ -1,0 +1,15 @@
+#include <iostream>
+#include <fcntl.h>
+#include <cstdlib>
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <vector>
+#include <string>
+#include <term.h>
+#include <stdlib.h>
+#include <cstdlib>
+#include <algorithm>
