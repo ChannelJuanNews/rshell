@@ -13,8 +13,7 @@ $ bin/rshell
 ```
 ##Bugs, behaviors, and limitations
 
-* ``$ ls -a && ls ``:  This command will only execute the last one after the alst '&&' (e.g. `pwd; pwd && pwd` will only
-*                   :  print the working directory once)
+* ``$ ls -a && ls ``:  This command will only execute the last one after the alst '&&' (e.g. `pwd; pwd && pwd` will only print the working directory once)
 
 * ``$ pwd | pwd``   :  Results in an error rather than reading the commands. (this goes for all `|` like commands)
 
