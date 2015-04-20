@@ -1,0 +1,231 @@
+Script started on Sun 19 Apr 2015 08:03:56 PM PDT
+~
+jruel006@hammer $ ls
+addons.json              [0m[38;5;34mcompatibility.ini[0m*     [38;5;34mextensions.sqlite-journal[0m*  [38;5;34mpermissions.sqlite[0m*      [38;5;34msignons.sqlite[0m*
+[38;5;34maddons.sqlite[0m*           [38;5;34mcontent-prefs.sqlite[0m*  [38;5;34mformhistory.sqlite[0m*         [38;5;34mplaces.sqlite[0m*           [38;5;27mstartupCache[0m/
+[38;5;34maddons.sqlite-journal[0m*   [38;5;34mcookies.sqlite[0m*        [38;5;27mhealthreport[0m/               [38;5;34mplaces.sqlite-shm[0m*       [38;5;27mthumbnails[0m/
+blocklist.xml            [38;5;34mcookies.sqlite-shm[0m*    healthreport.sqlite         [38;5;34mplaces.sqlite-wal[0m*       times.json
+[38;5;27mbookmarkbackups[0m/         [38;5;34mcookies.sqlite-wal[0m*    healthreport.sqlite-shm     pluginreg.dat            [38;5;27mwebapps[0m/
+[38;5;27mCache[0m/                   [38;5;27mDesktop[0m/               healthreport.sqlite-wal     [38;5;34mprefs.js[0m*                [38;5;34mwebappsstore.sqlite[0m*
+[38;5;27mcache2[0m/                  [38;5;27mDownloads[0m/             [38;5;34mkey3.db[0m*                    [38;5;27msafebrowsing[0m/            [38;5;34mwebappsstore.sqlite-shm[0m*
+_CACHE_CLEAN_            extensions.ini         [38;5;34mlocalstore.rdf[0m*             search.json              [38;5;34mwebappsstore.sqlite-wal[0m*
+[38;5;34mcert8.db[0m*                extensions.json        [48;5;232;38;5;9mlock[0m@                       [38;5;34msecmod.db[0m*
+[38;5;34mchromeappsstore.sqlite[0m*  [38;5;34mextensions.sqlite[0m*     [38;5;34mmimeTypes.rdf[0m*              sessionCheckpoints.json
+[m~
+jruel006@hammer $ cd Desktp[Kop/s[Krshell
+~/Desktop/rshell
+jruel006@hammer $ make
+#echo "CREATED BIN DIRECTORY IN ROOT DIRECTORY"
+mkdir bin
+mkdir: cannot create directory `bin': File exists
+make: *** [rshell] Error 1
+~/Desktop/rshell
+jruel006@hammer $ ls
+\  [0m[38;5;27mbin[0m/  LICENSE  Makefile  mk  README.md  [38;5;27msrc[0m/  [38;5;27mtests[0m/
+[m~/Desktop/rshell
+jruel006@hammer $ rm -rf bin
+~/Desktop/rshell
+jruel006@hammer $ cle[K[K[Kmake
+#echo "CREATED BIN DIRECTORY IN ROOT DIRECTORY"
+mkdir bin
+# goes to source folder where main.cpp is and compiles to executable named rshell
+cd src && g++ -Wall -Werror -ansi -pedantic -o rshell main.cpp
+# moves into src directory and moves rshell.out (executable) into bin directory 
+cd src && mv rshell ../bin		
+echo "LAUNCHING NEW RSHELL SESSION"
+LAUNCHING NEW RSHELL SESSION
+cd bin && rshell
+[H[J
+jruel006@hammer.cs.ucr.edu$ c echo Launched a new rshell e session
+Launched a new rshell session
+
+jruel006@hammer.cs.ucr.edu$ ls
+rshell
+
+jruel006@hammer.cs.ucr.edu$ ls -a
+.  ..  rshell
+
+jruel006@hammer.cs.ucr.edu$ pwd
+/home/csmajs/jruel006/Desktop/rshell/bin
+
+jruel006@hammer.cs.ucr.edu$ mk dir test         dr it tests 
+There was an error in execvp: No such file or directory
+-bash: mkdit: command not found
+jruel006@hammer.cs.ucr.edu$ ^[[A    mkdir tests 
+
+jruel006@hammer.cs.ucr.edu$ l touch tests/TESTS.cpp
+touch: cannot touch `tests/TESTS.cpp': No such file or directory
+
+jruel006@hammer.cs.ucr.edu$ ls
+rshell	test
+
+jruel006@hammer.cs.ucr.edu$ ls &&   ; ls
+ls: cannot access ls: No such file or directory
+rshell	test
+
+jruel006@hammer.cs.ucr.edu$ ls; ls ;  ; s ls
+ls: cannot access ls: No such file or directory
+ls: cannot access ls: No such file or directory
+rshell	test
+
+jruel006@hammer.cs.ucr.edu$ ls -aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+.  ..  rshell  test
+
+jruel006@hammer.cs.ucr.edu$ ls = -l aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaallllllllllll
+total 60
+drwx------ 3 jruel006 csmajs  4096 Apr 19 19:59 .
+drwx------ 6 jruel006 csmajs  4096 Apr 19 19:58 ..
+-rwx------ 1 jruel006 csmajs 48082 Apr 19 19:58 rshell
+drwx------ 2 jruel006 csmajs  4096 Apr 19 19:59 test
+
+jruel006@hammer.cs.ucr.edu$ ls |||
+ls: cannot access |||: No such file or directory
+
+jruel006@hammer.cs.ucr.edu$ ls || ls
+
+ls: cannot access ||: No such file or directory
+ls: cannot access ls: No such file or directory
+ls: cannot access ls: No such file or directory
+
+jruel006@hammer.cs.ucr.edu$ ls && ls
+
+ls: cannot access &&: No such file or directory
+ls: cannot access ls: No such file or directory
+ls: cannot access ls: No such file or directory
+rshell	test
+
+jruel006@hammer.cs.ucr.edu$ pwd; pwd
+pwd: ignoring non-option arguments
+/home/csmajs/jruel006/Desktop/rshell/bin
+/home/csmajs/jruel006/Desktop/rshell/bin
+
+jruel006@hammer.cs.ucr.edu$ pwd||   || ls-  -aaaaaaaaaaaaasfasdfasdfasdfasdfasdf
+
+pwd: invalid option -- 'a'
+Try `pwd --help' for more information.
+There was an error in execvp: No such file or directory
+-bash: -aaaaaaaaaaaaasfasdfasdfasdfasdfasdf: command not found
+jruel006@hammer.cs.ucr.edu$ cl  echo done || echo no done
+
+done || echo no done echo ||
+There was an error in execvp: No such file or directory
+-bash: no: command not found
+jruel006@hammer.cs.ucr.edu$ echo this    there ares  e so many buys i      gs in my code
+there are so many bugs in my code
+
+jruel006@hammer.cs.ucr.edu$ ls ....... ls -a
+ls: cannot access .......: No such file or directory
+ls: cannot access ls: No such file or directory
+
+jruel006@hammer.cs.ucr.edu$ ls ====     ....     .....; ls -a
+ls: cannot access .....: No such file or directory
+ls: cannot access .....: No such file or directory
+There was an error in execvp: No such file or directory
+-bash: .....: command not found
+jruel006@hammer.cs.ucr.edu$ pwd }}  **    || pwd || pwd || wd  pwd
+
+pwd: ignoring non-option arguments
+/home/csmajs/jruel006/Desktop/rshell/bin
+
+There was an error in execvp: No such file or directory
+-bash: ||: command not found
+pwd: ignoring non-option arguments
+/home/csmajs/jruel006/Desktop/rshell/bin
+
+jruel006@hammer.cs.ucr.edu$ rshe; ll
+[H[J
+jruel006@hammer.cs.ucr.edu$ e echo new session launched within rshell (inceptions )
+new session launched within rshell (inception)
+
+jruel006@hammer.cs.ucr.edu$ exit
+
+jruel006@hammer.cs.ucr.edu$ echo ( back to first session
+back to first session
+
+jruel006@hammer.cs.ucr.edu$ lklkklklklk -a
+There was an error in execvp: No such file or directory
+-bash: lklkklklklk: command not found
+jruel006@hammer.cs.ucr.edu$                                                            g++   touch test.cpp
+
+jruel006@hammer.cs.ucr.edu$ ls -a
+.  ..  rshell  test  test.cpp
+
+jruel006@hammer.cs.ucr.edu$ i vim test.cpp
+7[?47h[?1h=[1;56r[m[H[2J[56;1H"test.cpp" 0L, 0C[>c[1;1H[33m  1 [m
+[1m[94m~                                                                                                                                          [3;1H~                                                                                                                                          [4;1H~                                                                                                                                          [5;1H~                                                                                                                                          [6;1H~                                                                                                                                          [7;1H~                                                                                                                                          [8;1H~                                                                                                                                          [9;1H~                                                                                                                                          [10;1H~                                                                                                                                          [11;1H~                                                                                                                                          [12;1H~                                                                                                                                          [13;1H~                                                                                                                                          [14;1H~                                                                                                                                          [15;1H~                                                                                                                                          [16;1H~                                                                                                                                          [17;1H~                                                                                                                                          [18;1H~                                                                                                                                          [19;1H~                                                                                                                                          [20;1H~                                                                                                                                          [21;1H~                                                                                                                                          [22;1H~                                                                                                                                          [23;1H~                                                                                                                                          [24;1H~                                                                                                                                          [25;1H~                                                                                                                                          [26;1H~                                                                                                                                          [27;1H~                                                                                                                                          [28;1H~                                                                                                                                          [29;1H~                                                                                                                                          [30;1H~                                                                                                                                          [31;1H~                                                                                                                                          [32;1H~                                                                                                                                          [33;1H~                                                                                                                                          [34;1H~                                                                                                                                          [35;1H~                                                                                                                                          [36;1H~                                                                                                                                          [37;1H~                                                                                                                                          [38;1H~                                                                                                                                          [39;1H~                                                                                                                                          [40;1H~                                                                                                                                          [41;1H~                                                                                                                                          [42;1H~                                                                                                                                          [43;1H~                                                                                                                                          [44;1H~                                                                                                                                          [45;1H~                                                                                                                                          [46;1H~                                                                                                                                          [47;1H~                                                                                                                                          [48;1H~                                                                                                                                          [49;1H~                                                                                                                                          [50;1H~                                                                                                                                          [51;1H~                                                                                                                                          [52;1H~                                                                                                                                          [53;1H~                                                                                                                                          [54;1H~                                                                                                                                          [55;1H~                                                                                                                                          [m[56;122H0,0-1[9CAll[1;5H[56;1H[1m[37m[41mE348: No string under cursor[m[56;122H[K[56;122H0,0-1[9CAll[1;5H[56;1H[38;5;130m--[m[1m[37m[41m4[m[38;5;130m INSERT --[m[1m[37m[41mi[m[56;13H[K[56;122H0,1[11CAll[1;5H[33m [mn[56;122H1,2[1;6Hnc[56;124H3[1;7Hcl[56;124H4[1;8Hlu[56;124H5[1;9Hud[56;124H6[1;10H[1;9H[K[56;124H5[1;9H[1;8H[K[56;124H4[1;8H[1;7H[K[56;124H3[1;7H[1;6H[K[56;124H2[1;6H[1;5H[K[56;124H1[1;5H[33m [m#[56;124H2[1;6H#i[56;124H3[1;7H[38;5;130min[m[56;124H4[1;8Hinc[56;124H5[1;9Hcl[56;124H6[1;10Hlu[56;124H7[1;11Hud[56;124H8[1;12Hde[56;124H9[1;13H[56;124H10[1;14H[1;5H[91m#include <[m[56;125H1[1;15H[91m<[mi[56;125H2[1;16Hio[56;125H3[1;17H[38;5;130mios[m[56;125H4[1;18Hiosr[56;125H5[1;19H[38;5;130mios[m[1;18H[K[56;125H4[1;18Hioss[56;125H5[1;19Hst[56;125H6[1;20Htr[56;125H7[1;21Hre[56;125H8[1;22Hea[56;125H9[1;23H[1;22H[K[56;125H8[1;22H[1;21H[K[56;125H7[1;21H[1;20H[K[56;125H6[1;20H[1;19H[K[56;125H5[1;19H[38;5;130mios[m[1;18H[K[56;125H4[1;18Hioss[56;125H5[1;19Hst[56;125H6[1;20Htr[56;125H7[1;21H[1;20H[K[56;125H6[1;20H[1;19H[K[56;125H5[1;19H[38;5;130mios[m[1;18H[K[56;125H4[1;18Hiost[56;125H5[1;19Htr[56;125H6[1;20Hre[56;125H7[1;21Hea[56;125H8[1;22H[1;15H[32miostream[m[56;125H9[1;23H[1;14H[36m<iostream>[m[56;124H20[1;24H
+[33m  2 [m[2;5H[K[56;122H2,1 [2;5H[33m [mu[56;124H2[2;6Hun[56;124H3[2;7Hns[56;124H4[2;8Hsi[56;124H5[2;9Hin[56;124H6[2;10Hng[56;124H7[2;11H[56;124H8[2;12H n[56;124H9[2;13H[2;12H[K[56;124H8[2;12H[56;124H7[2;11H[2;10H[K[56;124H6[2;10H[2;9H[K[56;124H5[2;9H[2;8H[K[56;124H4[2;8H[2;7H[K[56;124H3[2;7Hni[56;124H4[2;8Hin[56;124H5[2;9Hng[56;124H6[2;10H[56;124H7[2;11H n[56;124H8[2;12H[2;11H[K[56;124H7[2;11H[56;124H6[2;10H[2;9H[K[56;124H5[2;9H[2;8H[K[56;124H4[2;8H[2;7H[K[56;124H3[2;7H[2;6H[K[56;124H2[2;6Hus[56;124H3[2;7Hsi[56;124H4[2;8Hin[56;124H5[2;9H[38;5;81musing[m[56;124H6[2;10H[56;124H7[2;11H n[56;124H8[2;12Hna[56;124H9[2;13Ham[56;124H10[2;14Hme[56;125H1[2;15Hes[56;125H2[2;16Hsp[56;125H3[2;17Hpa[56;125H4[2;18Hac[56;125H5[2;19H[2;11H[92mnamespace[m[56;125H6[2;20H[56;125H7[2;21H s[56;125H8[2;22Hst[56;125H9[2;23H[38;5;130mstd[m[56;124H20[2;24H[38;5;130md[m;[56;125H1[2;25H
+[33m  3 [m[3;5H[K[56;122H3,1 [3;5H[33m [mi[56;124H2[3;6H[38;5;130min[m[56;124H3[3;7H[32mint[m[56;124H4[3;8H[56;124H5[3;9H m[56;124H6[3;10Hma[56;124H7[3;11Hai[56;124H8[3;12Hin[56;124H9[3;13H[38;5;130mmain[m([56;124H10[3;14H()[46m()[m[56;125H1[3;15H()[56;125H2[3;16H {[56;125H3[3;17H{c[56;125H4[3;18Hco[56;125H5[3;19Hou[56;125H6[3;20H[38;5;130mcout[m[56;125H7[3;21H[56;125H8[3;22H <[56;125H9[3;23H<<[56;124H20[3;24H[56;125H1[3;25H [36m"[m[56;125H2[3;26H[36m"T[m[56;125H3[3;27H[36mTh[m[56;125H4[3;28H[36mhi[m[56;125H5[3;29H[36mis[m[56;125H6[3;30H[36m [m[56;125H7[3;31H[36m i[m[56;125H8[3;32H[36mis[m[56;125H9[3;33H[36m [m[56;124H30[3;34H[36m a[m[56;125H1[3;35H[36m [m[56;125H2[3;36H[36m t[m[56;125H3[3;37H[36mte[m[56;125H4[3;38H[36mes[m[56;125H5[3;39H[36mst[m[56;125H6[3;40H[3;39H[K[56;125H5[3;39H[3;38H[K[56;125H4[3;38H[3;37H[K[56;125H3[3;37H[3;36H[K[56;125H2[3;36H[36m t[m[56;125H3[3;37H[36mte[m[56;125H4[3;38H[36mes[m[56;125H5[3;39H[36mst[m[56;125H6[3;40H[36mt![m[56;125H7[3;41H[36m!![m[56;125H8[3;42H[36m!![m[56;125H9[3;43H[36m!"[m[56;124H40[3;44H[36m"[m;[56;125H1[3;45H[3;44H[K[56;125H0[3;44H[36m"[m<[56;125H1[3;45H<<[56;125H2[3;46H<e[56;125H3[3;47Hen[56;125H4[3;48Hnd[56;125H5[3;49H[38;5;130mendl[m[56;125H6[3;50H[38;5;130ml[m;[56;125H7[3;51H;}[3;16H[46m{[34C}[m[56;125H8[3;52H[56;1H[K[3;51H[56;122H3,47[10CAll[3;51H[56;122H[K[56;1H:wq"test.cpp" 3L, 89C written
+[?1l>[2J[?47l8
+jruel006@hammer.cs.ucr.edu$ g++ tess t.cpp
+
+jruel006@hammer.cs.ucr.edu$ ./a.out
+This is a test!!!
+
+jruel006@hammer.cs.ucr.edu$ g++ test.cpp && pwd
+
+g++: &&: No such file or directory
+g++: pwd: No such file or directory
+g++: g++: No such file or directory
+g++: &&: No such file or directory
+/home/csmajs/jruel006/Desktop/rshell/bin
+
+jruel006@hammer.cs.ucr.edu$ pwd && g++ test.cpp
+
+pwd: ignoring non-option arguments
+/home/csmajs/jruel006/Desktop/rshell/bin
+
+jruel006@hammer.cs.ucr.edu$ ls -a && ls
+
+ls: cannot access &&: No such file or directory
+ls: cannot access ls: No such file or directory
+ls: cannot access ls: No such file or directory
+ls: cannot access &&: No such file or directory
+a.out  rshell  test  test.cpp
+
+jruel006@hammer.cs.ucr.edu$ rm -rf test
+
+jruel006@hammer.cs.ucr.edu$ ls -llllllllllllllllllllllllllllaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+total 72
+drwx------ 2 jruel006 csmajs  4096 Apr 19 20:06 .
+drwx------ 6 jruel006 csmajs  4096 Apr 19 19:58 ..
+-rwx------ 1 jruel006 csmajs  8214 Apr 19 20:06 a.out
+-rwx------ 1 jruel006 csmajs 48082 Apr 19 19:58 rshell
+-rw------- 1 jruel006 csmajs    89 Apr 19 20:05 test.cpp
+
+jruel006@hammer.cs.ucr.edu$ ;ls
+There was an error in execvp: No such file or directory
+-bash: ;l: command not found
+jruel006@hammer.cs.ucr.edu$ cat tes st.cpp
+#include <iostream>
+using namespace std;
+int main() {cout << "This is a test!!!"<<endl;}
+
+jruel006@hammer.cs.ucr.edu$ mkdir TSTDIR
+
+jruel006@hammer.cs.ucr.edu$ cat TSTDIR/main.cpp
+cat: TSTDIR/main.cpp: No such file or directory
+
+jruel006@hammer.cs.ucr.edu$ idk   alkjshdfklaskjfhakjslhdf
+There was an error in execvp: No such file or directory
+-bash: alkjshdfklaskjfhakjslhdf: command not found
+jruel006@hammer.cs.ucr.edu$ ls -a
+.  ..  a.out  rshell  test.cpp	TSTDIR
+
+jruel006@hammer.cs.ucr.edu$ mv a.out EXECUTABLE
+
+jruel006@hammer.cs.ucr.edu$ ks -a
+There was an error in execvp: No such file or directory
+-bash: ks: command not found
+jruel006@hammer.cs.ucr.edu$ ls -a
+.  ..  EXECUTABLE  rshell  test.cpp  TSTDIR
+
+jruel006@hammer.cs.ucr.edu$ EXECUTABLE
+This is a test!!!
+
+jruel006@hammer.cs.ucr.edu$ touch TEST   STDIR/main.cpp
+
+jruel006@hammer.cs.ucr.edu$ vim TSTDIR/main.cpp
+7[?47h[?1h=[1;56r[m[H[2J[56;1H"TSTDIR/main.cpp" 0L, 0C[>c[1;1H[33m  1 [m
+[1m[94m~                                                                                                                                          [3;1H~                                                                                                                                          [4;1H~                                                                                                                                          [5;1H~                                                                                                                                          [6;1H~                                                                                                                                          [7;1H~                                                                                                                                          [8;1H~                                                                                                                                          [9;1H~                                                                                                                                          [10;1H~                                                                                                                                          [11;1H~                                                                                                                                          [12;1H~                                                                                                                                          [13;1H~                                                                                                                                          [14;1H~                                                                                                                                          [15;1H~                                                                                                                                          [16;1H~                                                                                                                                          [17;1H~                                                                                                                                          [18;1H~                                                                                                                                          [19;1H~                                                                                                                                          [20;1H~                                                                                                                                          [21;1H~                                                                                                                                          [22;1H~                                                                                                                                          [23;1H~                                                                                                                                          [24;1H~                                                                                                                                          [25;1H~                                                                                                                                          [26;1H~                                                                                                                                          [27;1H~                                                                                                                                          [28;1H~                                                                                                                                          [29;1H~                                                                                                                                          [30;1H~                                                                                                                                          [31;1H~                                                                                                                                          [32;1H~                                                                                                                                          [33;1H~                                                                                                                                          [34;1H~                                                                                                                                          [35;1H~                                                                                                                                          [36;1H~                                                                                                                                          [37;1H~                                                                                                                                          [38;1H~                                                                                                                                          [39;1H~                                                                                                                                          [40;1H~                                                                                                                                          [41;1H~                                                                                                                                          [42;1H~                                                                                                                                          [43;1H~                                                                                                                                          [44;1H~                                                                                                                                          [45;1H~                                                                                                                                          [46;1H~                                                                                                                                          [47;1H~                                                                                                                                          [48;1H~                                                                                                                                          [49;1H~                                                                                                                                          [50;1H~                                                                                                                                          [51;1H~                                                                                                                                          [52;1H~                                                                                                                                          [53;1H~                                                                                                                                          [54;1H~                                                                                                                                          [55;1H~                                                                                                                                          [m[56;122H0,0-1[9CAll[1;5H[56;1H[1m[37m[41mE348: No string under cursor[m[56;122H[K[56;122H0,0-1[9CAll[1;5H[56;1H[38;5;130m--[m[1m[37m[41m4[m[38;5;130m INSERT --[m[1m[37m[41mi[m[56;13H[K[56;122H0,1[11CAll[1;5H[33m [mn[56;122H1,2[1;6Hnc[56;124H3[1;7Hcl[56;124H4[1;8Hlu[56;124H5[1;9Hud[56;124H6[1;10Hde[56;124H7[1;11H[1;10H[K[56;124H6[1;10H[1;9H[K[56;124H5[1;9H[1;8H[K[56;124H4[1;8H[1;7H[K[56;124H3[1;7H[1;6H[K[56;124H2[1;6H[1;5H[K[56;124H1[1;5H[33m [mi[56;124H2[1;6H[38;5;130min[m[56;124H3[1;7Hinc[56;124H4[1;8Hcl[56;124H5[1;9Hlu[56;124H6[1;10Hud[56;124H7[1;11Hde[56;124H8[1;12H[56;124H9[1;13H <[56;124H10[1;14H<i[56;125H1[1;15Hio[56;125H2[1;16H[38;5;130mios[m[56;125H3[1;17Hiost[56;125H4[1;18Htr[56;125H5[1;19Hre[56;125H6[1;20Hea[56;125H7[1;21H[1;14H[32miostream[m[56;125H8[1;22H[32mm[m>[56;125H9[1;23H
+[33m  2 [m[2;5H[K[56;122H2,1 [2;5H[33m [mu[56;124H2[2;6Hun[56;124H3[2;7Hns[56;124H4[2;8Hsi[56;124H5[2;9Hin[56;124H6[2;10Hng[56;124H7[2;11H[56;124H8[2;12H[56;124H7[2;11H[2;10H[K[56;124H6[2;10H[2;9H[K[56;124H5[2;9H[2;8H[K[56;124H4[2;8H[2;7H[K[56;124H3[2;7H[2;6H[K[56;124H2[2;6Hus[56;124H3[2;7Hsi[56;124H4[2;8Hin[56;124H5[2;9H[38;5;81musing[m[56;124H6[2;10H[56;124H7[2;11H n[56;124H8[2;12Hna[56;124H9[2;13Ham[56;124H10[2;14Hms[56;125H1[2;15Hsp[56;125H2[2;16Hpa[56;125H3[2;17Hac[56;125H4[2;18Hce[56;125H5[2;19H[56;125H6[2;20H s[56;125H7[2;21Hst[56;125H8[2;22H[38;5;130mstd[m[56;125H9[2;23H[38;5;130md[m;[56;124H20[2;24H
+[33m  3 [m[3;5H[K[56;122H3,1 [3;5H[33m [mi[56;124H2[3;6H[38;5;130min[m[56;124H3[3;7H[32mint[m[56;124H4[3;8H[56;124H5[3;9H m[56;124H6[3;10Hma[56;124H7[3;11Hai[56;124H8[3;12Hin[56;124H9[3;13H[38;5;130mmain[m([56;124H10[3;14H()[46m()[m[56;125H1[3;15H[46m)[mP()[56;125H2[3;16H[3;15H[K[3;13H[46m()[m[56;125H1[3;15H[46m)[m{()[56;125H2[3;16H{c[56;125H3[3;17Hco[56;125H4[3;18Hou[56;125H5[3;19H[38;5;130mcout[m[56;125H6[3;20H[56;125H7[3;21H >[56;125H8[3;22H[56;122H2[2;22H[56;125H7[2;21H[56;122H1[1;21H[56;125H6[1;20H[56;125H5[1;19H[56;125H4[1;18H[56;125H3[1;17H[56;125H2[1;16H[56;125H1[1;15H[56;125H0[1;14H[56;124H9 [1;13H[56;124H8[1;12H[56;124H7[1;11H[56;124H6[1;10H[56;124H5[1;9H[56;124H4[1;8H[56;124H3[1;7H[56;124H2[1;6H[56;124H1[1;5H[33m [m[91m#include [m[36m<iostream>[m[56;124H2[1;6H[56;122H2[2;6H[56;124H3[2;7H[56;122H3[3;7H[56;124H4[3;8H[56;124H5[3;9H[56;124H6[3;10H[56;124H7[3;11H[56;124H8[3;12H[1C[46m()[m[56;124H9[3;13H[56;124H10[3;14H()[56;125H1[3;15H[56;125H2[3;16H[56;125H3[3;17H[56;125H4[3;18H[56;125H5[3;19H[56;125H6[3;20H[56;125H7[3;21H[56;125H8[3;22H[3;21H[K[56;125H7[3;21H <[56;125H8[3;22H<<[56;125H9[3;23H[56;124H20[3;24H [36m"[m[56;125H1[3;25H[36m"W[m[56;125H2[3;26H[36mWe[m[56;125H3[3;27H[36m [m[56;125H4[3;28H[36m a[m[56;125H5[3;29H[36mar[m[56;125H6[3;30H[36mre[m[56;125H7[3;31H[36m [m[56;125H8[3;32H[36m i[m[56;125H9[3;33H[36min[m[56;124H30[3;34H[36mns[m[56;125H1[3;35H[36msi[m[56;125H2[3;36H[36mid[m[56;125H3[3;37H[36mde[m[56;125H4[3;38H[36m [m[56;125H5[3;39H[36m t[m[56;125H6[3;40H[36mth[m[56;125H7[3;41H[36mhe[m[56;125H8[3;42H[36m [m[56;125H9[3;43H[36m T[m[56;124H40[3;44H[36mTE[m[56;125H1[3;45H[36mES[m[56;125H2[3;46H[3;45H[K[56;125H1[3;45H[36mES[m[56;125H2[3;46H[36mST[m[56;125H3[3;47H[3;46H[K[56;125H2

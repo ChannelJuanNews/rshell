@@ -211,7 +211,7 @@ int divideCommands(vector<char *> & v) {
 		}
 	
 		//cout << "Command to be added: ";
-		cout << v[x] << endl;
+		//cout << v[x] << endl;
 		if (convertChar(v[x]) == " &&" || convertChar(v[x]) == "||"){
 			currentCommand.pop_back();	
 		} 
