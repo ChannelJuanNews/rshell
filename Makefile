@@ -26,7 +26,7 @@ rshell:
 	echo "LAUNCHING NEW RSHELL SESSION"
 	cd bin && rshell
 	#DELETES THE BIN DIRECTORY UPON EXITING OF rshell 
-	make clean
+	#make clean
 clean: 
 	echo "DELETING BIN DIRECTORY IN ROOT FOLDER"
 	rm -rf bin
