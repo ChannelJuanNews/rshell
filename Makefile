@@ -24,7 +24,7 @@ rshell:
 	cd $(src) && mv $(EXECUTABLE) ../bin		
 	
 	echo "LAUNCHING NEW RSHELL SESSION"
-	cd bin && rshell
+	#cd bin && rshell
 	#DELETES THE BIN DIRECTORY UPON EXITING OF rshell 
 	#make clean
 clean: 

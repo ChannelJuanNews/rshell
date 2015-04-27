@@ -8,6 +8,7 @@ $ git clone https://github.com/jruel006/rshell.git
 $ cd rshell
 $ git checkout hw0
 $ make
+$ bin/rshell
 ```
 *** When exiting rshell with the `exit` command, make will automatically delete the bin folder for you ***
 
