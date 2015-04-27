@@ -24,6 +24,8 @@ $ bin/rshell
 
 * ``$ cat > FILENAME `` : This command will result in an error instead of creating a file. 
 
+* ``$ # this is a comment `` : This command will crash rshell. Comments will only work if there is a command before it. 
+
 * Arrows for command history not supported (same goes for special commands like `Ctrl - c`)
 
 * ``cd`` not supported.
