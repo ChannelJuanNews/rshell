@@ -1,6 +1,8 @@
 #ifndef _LS_H_
 #define _LS_H_
 
+#include <cstdlib>
+#include <algorithm>
 #include <iostream>
 #include <stdlib.h>
 #include <unistd.h>
@@ -11,7 +13,11 @@
 #include <dirent.h>
 #include <errno.h>
 #include <string>
+#include <pwd.h>
+#include <grp.h>
+//#include <uuid/uuid.h>
 #include <string.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -148,34 +154,200 @@ void outputFilesA(vector<string> & v){
 		cout << v.at(i) << " ";
 	}
 	cout << endl;
-}
 
+}
+	
 void outputFilesL(vector<string> & v){
-	
-	
-	cout << "total " << "#" << endl;
-	
-		struct stat s;
-		unsigned max = 0;
-	
+
+	cout << "total " << "#" << endl;	
 	for (unsigned i = 0; i < v.size(); i++){
 		
-		// ignore hidden files in this one
 		if (v.at(i)[0] == '.'){ }
 		else {
+			struct stat s;
+			unsigned max = 0;	
+				
+			if (stat(v.at(i).c_str(), &s) != 0){
+				perror(v.at(i).c_str());
+				exit(1);
+			}
+			for (unsigned j = 0; j < v.size(); j++){
+				
+				unsigned MAX = 0;
+				stat(v.at(j).c_str(), &s);
+				int holdSize = s.st_size;
+				while(holdSize > 0){
+				
+					holdSize = holdSize/10;
+					MAX++;
+				}
+				if (MAX > max){
+					max = MAX;
+				}
+				
+			}
+			stat(v.at(i).c_str(), &s);
 			
+			struct passwd * pw = getpwuid(s.st_uid);
+			struct group  * gr = getgrgid(s.st_gid);
+			if (!pw){
+				perror("Error with getting owner name");
+				exit(1);
+			}
+			if (!gr){
+				perror("Error with getting group name");
+				exit(1);
+			}
+			if (S_ISDIR(s.st_mode)){ cout << "d";}
+			else if(S_ISLNK(s.st_mode)) {cout << "l";}
+			else {cout << "-";}
+	
+			cout << ((s.st_mode & S_IRUSR) ? "r" : "-") << 
+				((s.st_mode & S_IWUSR) ? "w" : "-") <<
+				((s.st_mode & S_IXUSR) ? "x" : "-");
+	
+			cout << ((s.st_mode & S_IRGRP) ? "r" : "-") << 
+				((s.st_mode & S_IWGRP) ? "w" : "-") <<
+				((s.st_mode & S_IXGRP) ? "x" : "-");
+	
+			cout << ((s.st_mode & S_IROTH) ? "r" : "-") << 
+				((s.st_mode & S_IWOTH) ? "w" : "-") <<
+				((s.st_mode & S_IXOTH) ? "x" : "-");
+	
+			//nlink_t         st_nlink;         /* Number of hard links */
+			//struct timespec st_mtimespec;     /* time of last data modification */
 			
+			// couts the hard links
+			cout << " " << s.st_nlink;
+			// prints the user and group name
+			cout << " " << pw->pw_name << " " <<gr->gr_name;
+			// prints out the size of the file
+			cout << setw(max + 1) << s.st_size;
 			
+			// used with the ANSI codes for coloring
+			/*
+			switch (sb.st_mode & S_IFMT) {
+			case S_IFBLK:  printf("block device\n");            break;
+			case S_IFCHR:  printf("character device\n");        break;
+			case S_IFDIR:  printf("directory\n");               break;
+			case S_IFIFO:  printf("FIFO/pipe\n");               break;
+			case S_IFLNK:  printf("symlink\n");                 break;
+			case S_IFREG:  printf("regular file\n");            break;
+			case S_IFSOCK: printf("socket\n");                  break;
+			default:       printf("unknown?\n");                break;
+			}			
+			*/
+			struct tm timespecs;
+			localtime_r(&s.st_mtime, &timespecs);
+			char buff[20];
+			strftime((char*)&buff, 20, " %b %d %H:%M", & timespecs);
+			printf("%s ", buff);
+				
+			
+			// prints the file at the end
+			cout << " " << v.at(i).c_str() << endl;
 		}
 		
 	}
 	
+}
+
+
+void outputFilesAL(vector<string> & v){
 	
+	// struct timespec st_mtimespec;     /* time of last data modification */
+	// nlink_t         st_nlink;         /* Number of hard links */
+	//cout << "total " << "#" << endl;
 	
-	
-	
+	cout << "total " << "#" << endl;	
+	for (unsigned i = 0; i < v.size(); i++){
+		struct stat s;
+		unsigned max = 0;	
+			
+		if (stat(v.at(i).c_str(), &s) != 0){
+			perror(v.at(i).c_str());
+			exit(1);
+		}
+		for (unsigned j = 0; j < v.size(); j++){
+			
+			unsigned MAX = 0;
+			stat(v.at(j).c_str(), &s);
+			int holdSize = s.st_size;
+			while(holdSize > 0){
+			
+				holdSize = holdSize/10;
+				MAX++;
+			}
+			if (MAX > max){
+				max = MAX;
+			}
+			
+		}
+		stat(v.at(i).c_str(), &s);
+		
+		struct passwd * pw = getpwuid(s.st_uid);
+		struct group  * gr = getgrgid(s.st_gid);
+		if (!pw){
+			perror("Error with getting owner name");
+			exit(1);
+		}
+		if (!gr){
+			perror("Error with getting group name");
+			exit(1);
+		}
+		if (S_ISDIR(s.st_mode)){ cout << "d";}
+		else if(S_ISLNK(s.st_mode)) {cout << "l";}
+		else {cout << "-";}
+
+		cout << ((s.st_mode & S_IRUSR) ? "r" : "-") << 
+			((s.st_mode & S_IWUSR) ? "w" : "-") <<
+			((s.st_mode & S_IXUSR) ? "x" : "-");
+
+		cout << ((s.st_mode & S_IRGRP) ? "r" : "-") << 
+			((s.st_mode & S_IWGRP) ? "w" : "-") <<
+			((s.st_mode & S_IXGRP) ? "x" : "-");
+
+		cout << ((s.st_mode & S_IROTH) ? "r" : "-") << 
+			((s.st_mode & S_IWOTH) ? "w" : "-") <<
+			((s.st_mode & S_IXOTH) ? "x" : "-");
+
+		//nlink_t         st_nlink;         /* Number of hard links */
+		//struct timespec st_mtimespec;     /* time of last data modification */
+		
+		// couts the hard links
+		cout << " " << s.st_nlink;
+		// prints the user and group name
+		cout << " " << pw->pw_name << " " <<gr->gr_name;
+		// prints out the size of the file
+		cout << setw(max + 1) << s.st_size;
+		
+		// used with the ANSI codes for coloring
+		/*
+		switch (sb.st_mode & S_IFMT) {
+		case S_IFBLK:  printf("block device\n");            break;
+		case S_IFCHR:  printf("character device\n");        break;
+		case S_IFDIR:  printf("directory\n");               break;
+		case S_IFIFO:  printf("FIFO/pipe\n");               break;
+		case S_IFLNK:  printf("symlink\n");                 break;
+		case S_IFREG:  printf("regular file\n");            break;
+		case S_IFSOCK: printf("socket\n");                  break;
+		default:       printf("unknown?\n");                break;
+		}			
+		*/
+		struct tm timespecs;
+		localtime_r(&s.st_mtime, &timespecs);
+		char buff[20];
+		strftime((char*)&buff, 20, " %b %d %H:%M", & timespecs);
+		printf("%s ", buff);
+		
+		
+		// prints the file at the end
+		cout << " " << v.at(i).c_str() << endl;
+		
+	}
 	
 }
+
 // sort the vector before you call print function
 void sortVector(vector<string> & v){
 	
@@ -206,24 +378,23 @@ void ExecuteCommands(string Directory, string FLAGS){
 	memcpy(DIRECTORY,Directory.c_str(), Directory.size());
 	cout << "CONVERTED DIRECTORY: " << DIRECTORY << endl; 
 
-	// sort the vector into heigharchy before printing stuff
-	sortVector(files_Directories);
-
-
 	// ls
 	if (A == false && L == false && R == false){
 		fillDirectories_files(DIRECTORY,files_Directories);
+		sortVector(files_Directories);
 		outputFiles(files_Directories);
 	} 
 	// ls -a
 	else if (A == true && L == false && R == false){
 		fillDirectories_files(DIRECTORY, files_Directories);
+		sortVector(files_Directories);
 		outputFilesA(files_Directories);
 	}
 	// ls -l
 	else if (A == false && L == true && R == false){
 		fillDirectories_files(DIRECTORY, files_Directories);
-		
+		sortVector(files_Directories);
+		outputFilesL(files_Directories);	
 	}
 	// ls -R
 	else if (A == false && L == false && R == true){
@@ -231,7 +402,9 @@ void ExecuteCommands(string Directory, string FLAGS){
 	}
 	// ls -a -l
 	else if (A == true && L == true && R == false){
-	
+		fillDirectories_files(DIRECTORY, files_Directories);
+		sortVector(files_Directories);
+		outputFilesAL(files_Directories);
 	}
 	// ls -a -R
 	else if (A == true && L == false && R == true){
