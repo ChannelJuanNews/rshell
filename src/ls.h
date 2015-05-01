@@ -21,13 +21,9 @@
 
 using namespace std;
 
-
-
 string convert(char * data){
 	return string(data);
 }
-
-
 
 // gets the flags for ls all into one string
 string getFlags(int argc, char * argv[]){
@@ -117,8 +113,6 @@ string getDirectory(int argc, char * argv[]){
 	}
 }
 
-
-
 void fillDirectories_files(char * CurrDirectory, vector<string> & v){
 	
 	DIR * dir;
@@ -143,18 +137,38 @@ void fillDirectories_files(char * CurrDirectory, vector<string> & v){
 	}
 }
 void outputFiles(vector<string> & v){
+
+	unsigned MAX = 0;
+	for(unsigned i = 0; i < v.size(); i++){
+		if (v.at(i)[0] == '.'){continue;}
+		if (v.at(i).size() > MAX){
+			MAX+=v.at(i).size();
+		}
+	}
 	for (unsigned i = 0; i < v.size(); i++){
-		if (v.at(i).at(0) == '.'){ }
-		else { cout << v.at(i) << " ";}
+		if (v.at(i).at(0) == '.'){continue; }
+		cout << setw(MAX) << left << v.at(i) << " ";
+		if ((i%5) == 0){cout << endl;}
 	}
 	cout << endl;
 }
 void outputFilesA(vector<string> & v){
+	unsigned MAX = 0;
+	for(unsigned i = 0; i < v.size(); i++){
+		if (v.at(i).size() > MAX){
+			MAX+=v.at(i).size();
+		}
+	}
 	for (unsigned i = 0; i < v.size(); i++){
-		cout << v.at(i) << " ";
+		if (v.at(i).size() < MAX){
+			cout << setw(MAX) << left << v.at(i) << " ";
+		}
+		else{
+			cout << setw(MAX) << left << v.at(i) << " ";
+		}
+		if ((i%5) == 0){cout << endl;}
 	}
 	cout << endl;
-
 }
 	
 void outputFilesL(vector<string> & v){
@@ -167,7 +181,8 @@ void outputFilesL(vector<string> & v){
 			struct stat s;
 			unsigned max = 0;	
 				
-			if (stat(v.at(i).c_str(), &s) != 0){
+			if (stat(v.at(i).c_str(), &s) == 1){
+				cout << "The file that doesn't work is: " << v.at(i) << endl;
 				perror(v.at(i).c_str());
 				exit(1);
 			}
@@ -255,16 +270,13 @@ void outputFilesL(vector<string> & v){
 
 void outputFilesAL(vector<string> & v){
 	
-	// struct timespec st_mtimespec;     /* time of last data modification */
-	// nlink_t         st_nlink;         /* Number of hard links */
-	//cout << "total " << "#" << endl;
-	
 	cout << "total " << "#" << endl;	
 	for (unsigned i = 0; i < v.size(); i++){
 		struct stat s;
 		unsigned max = 0;	
 			
-		if (stat(v.at(i).c_str(), &s) != 0){
+		if (stat(v.at(i).c_str(), &s) == 1){
+			cout << "The directory that could not be opened was " << v.at(i) << endl;
 			perror(v.at(i).c_str());
 			exit(1);
 		}
@@ -340,7 +352,6 @@ void outputFilesAL(vector<string> & v){
 		strftime((char*)&buff, 20, " %b %d %H:%M", & timespecs);
 		printf("%s ", buff);
 		
-		
 		// prints the file at the end
 		cout << " " << v.at(i).c_str() << endl;
 		
@@ -349,10 +360,24 @@ void outputFilesAL(vector<string> & v){
 }
 
 // sort the vector before you call print function
+//
+//
+//
+
+//Comparison; not case sensitive.
+bool compareNoCase (string first, string second){
+	unsigned i=0;
+	while ((i < first.length()) && (i < second.length())){
+		if (tolower (first[i]) < tolower (second[i])) return true;
+		else if (tolower (first[i]) > tolower (second[i])) return false;
+			i++;
+	}
+	if (first.length() < second.length()) return true;
+	else return false;
+}
+
 void sortVector(vector<string> & v){
-	
-	
-	
+	sort(v.begin(), v.end(), compareNoCase);
 }
 void ExecuteCommands(string Directory, string FLAGS){
 	
