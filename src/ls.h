@@ -53,7 +53,7 @@ string getFlags(int argc, char * argv[]){
 		}
 	}
 	// Now all the flags are captured, so put them in an array
-	cout << "THE FLAGS ARE: " << FLAGS << endl;
+	//cout << "THE FLAGS ARE: " << FLAGS << endl;
 	return FLAGS;
 }
 	
@@ -71,7 +71,7 @@ string getDirectory(int argc, char * argv[]){
 	}
 	// deletes any index in the vector that starts with the '-'
 	for (unsigned l = 0; l < COMMANDS.size(); l++){
-		cout << "COMMANDS: " << COMMANDS.at(l) << endl;
+		//cout << "COMMANDS: " << COMMANDS.at(l) << endl;
 		if (COMMANDS.at(l)[0] == '-'){
 			removeIndex(COMMANDS,l);
 			l--;
@@ -82,7 +82,7 @@ string getDirectory(int argc, char * argv[]){
 		Commands += convert(COMMANDS[i]);
 		Commands += " ";
 	}
-	cout << "ONCE FLAGS ARE DELETED: " << Commands << endl;
+	//cout << "ONCE FLAGS ARE DELETED: " << Commands << endl;
 	
 	// Useless code now that the functions implemented above are implemented 
 	for (unsigned j = 0; j < Commands.size(); j++){
@@ -108,7 +108,7 @@ string getDirectory(int argc, char * argv[]){
 		return ".";
 	}
 	else{
-		cout << "THE DIRECTORY IS: " << DIRECTORY << endl;
+		//cout << "THE DIRECTORY IS: " << DIRECTORY << endl;
 		return DIRECTORY;
 	}
 }
@@ -136,8 +136,17 @@ void fillDirectories_files(char * CurrDirectory, vector<string> & v){
 		exit(1);
 	}
 }
-void outputFiles(vector<string> & v){
+char blue []  = {"\033[1;34m"};
+char white[]  = {"\033[100m"};
+char green[]  = {"\033[1;32m"};
+char RESET[]  = {"\033[0m"}; 
 
+char directory   [] = {"\033[1;34m"};
+char hidden      [] = {"\033[1;34m\033[1;40m"};
+char executable  [] = {"\033[1;32m"};
+
+void outputFiles(vector<string> & v){	
+	// captures the max width for priting and shit
 	unsigned MAX = 0;
 	for(unsigned i = 0; i < v.size(); i++){
 		if (v.at(i)[0] == '.'){continue;}
@@ -146,13 +155,28 @@ void outputFiles(vector<string> & v){
 		}
 	}
 	for (unsigned i = 0; i < v.size(); i++){
-		if (v.at(i).at(0) == '.'){continue; }
-		cout << setw(MAX) << left << v.at(i) << " ";
+		struct stat s;	
+		if (stat(v.at(i).c_str(), &s) == 1){
+			perror("Shit went wront when opening file/directory before printing");
+			exit(1);
+		}
+		if (v.at(i).at(0) == '.'){continue;}
+		else if(S_ISDIR(s.st_mode)){
+			cout <<  directory << setw(MAX) << left <<  v.at(i) << "\033[0m" << " ";
+		}
+		else if (S_ISREG(s.st_mode) && (s.st_mode & S_IXUSR)){
+			cout << executable << setw(MAX) << left << v.at(i) << "\033[0m" << " ";
+		}
+		else {
+			cout << setw(MAX) << left << v.at(i) << " ";
+		}
+		// if we have five columns then print newline
 		if ((i%5) == 0){cout << endl;}
 	}
 	cout << endl;
 }
 void outputFilesA(vector<string> & v){
+	// captures the max width for priting and shit
 	unsigned MAX = 0;
 	for(unsigned i = 0; i < v.size(); i++){
 		if (v.at(i).size() > MAX){
@@ -160,20 +184,40 @@ void outputFilesA(vector<string> & v){
 		}
 	}
 	for (unsigned i = 0; i < v.size(); i++){
-		if (v.at(i).size() < MAX){
+		struct stat s;	
+		if (stat(v.at(i).c_str(), &s) == 1){
+			perror("Shit went wront when opening file/directory before printing");
+			exit(1);
+		}
+		if (v.at(i)[0] == '.'){
+			cout << hidden << setw(MAX) << left << v.at(i) << "\033[0m\033[0m" << " ";
+		}
+		else if(S_ISDIR(s.st_mode)){
+			cout <<  directory << setw(MAX) << left <<  v.at(i) << "\033[0m" << " ";
+		}
+		else if (S_ISREG(s.st_mode) && (s.st_mode & S_IXUSR)){
+			cout << executable << setw(MAX) << left << v.at(i) << "\033[0m" << " ";
+		}
+		else {
 			cout << setw(MAX) << left << v.at(i) << " ";
 		}
-		else{
-			cout << setw(MAX) << left << v.at(i) << " ";
-		}
+		// if we have five columns then print newline
 		if ((i%5) == 0){cout << endl;}
 	}
 	cout << endl;
 }
-	
 void outputFilesL(vector<string> & v){
-
-	cout << "total " << "#" << endl;	
+	
+	int total = 0;
+	for (unsigned i = 0; i < v.size(); i++){
+		struct stat buff;
+		if (stat(v.at(i).c_str(), &buff) == 1){
+			perror("There was an error gathering total");
+			exit(1);
+		}
+		total += buff.st_blocks;
+	}
+	cout << "total " << total/2 << endl;	
 	for (unsigned i = 0; i < v.size(); i++){
 		
 		if (v.at(i)[0] == '.'){ }
@@ -213,9 +257,14 @@ void outputFilesL(vector<string> & v){
 				perror("Error with getting group name");
 				exit(1);
 			}
-			if (S_ISDIR(s.st_mode)){ cout << "d";}
-			else if(S_ISLNK(s.st_mode)) {cout << "l";}
-			else {cout << "-";}
+			if (S_ISREG(s.st_mode)){ cout << "-";}
+			else if (S_ISDIR(s.st_mode)){cout << "d";}
+			else if (S_ISCHR(s.st_mode)){cout << "c";}
+			else if (S_ISBLK(s.st_mode)){cout << "b";}
+			else if (S_ISFIFO(s.st_mode)){cout << "P";}
+			else if (S_ISLNK(s.st_mode)){cout << "l";}
+			else if (S_ISSOCK(s.st_mode)){cout << "s";}
+			else {cout << "?";}
 	
 			cout << ((s.st_mode & S_IRUSR) ? "r" : "-") << 
 				((s.st_mode & S_IWUSR) ? "w" : "-") <<
@@ -256,25 +305,40 @@ void outputFilesL(vector<string> & v){
 			localtime_r(&s.st_mtime, &timespecs);
 			char buff[20];
 			strftime((char*)&buff, 20, " %b %d %H:%M", & timespecs);
-			printf("%s ", buff);
-				
-			
-			// prints the file at the end
-			cout << " " << v.at(i).c_str() << endl;
+			printf("%s ", buff);		
+			//if (v.at(i)[0] == '.'){
+			//	cout << hidden << setw(MAX) << left << v.at(i) << "\033[0m\033[0m" << " ";
+			//}
+			if(S_ISDIR(s.st_mode)){
+				cout <<  directory << v.at(i) << "\033[0m" << " ";
+			}
+			else if (S_ISREG(s.st_mode) && (s.st_mode & S_IXUSR)){
+				cout << executable << v.at(i) << "\033[0m" << " ";
+			}
+			else {
+				cout << v.at(i) << " ";
+			}
+			cout << endl;
 		}
 		
 	}
 	
 }
 
-
-void outputFilesAL(vector<string> & v){
-	
-	cout << "total " << "#" << endl;	
+void outputFilesAL(vector<string> & v){	
+	int total = 0;
+	for (unsigned i = 0; i < v.size(); i++){
+		struct stat buff;
+		if (stat(v.at(i).c_str(), &buff) == 1){
+			perror("There was an error gathering total");
+			exit(1);
+		}
+		total += buff.st_blocks;
+	}
+	cout << "total " << total/2 << endl;	
 	for (unsigned i = 0; i < v.size(); i++){
 		struct stat s;
 		unsigned max = 0;	
-			
 		if (stat(v.at(i).c_str(), &s) == 1){
 			cout << "The directory that could not be opened was " << v.at(i) << endl;
 			perror(v.at(i).c_str());
@@ -307,10 +371,16 @@ void outputFilesAL(vector<string> & v){
 			perror("Error with getting group name");
 			exit(1);
 		}
-		if (S_ISDIR(s.st_mode)){ cout << "d";}
-		else if(S_ISLNK(s.st_mode)) {cout << "l";}
-		else {cout << "-";}
 
+		if (S_ISREG(s.st_mode)){ cout << "-";}
+		else if (S_ISDIR(s.st_mode)){cout << "d";}
+		else if (S_ISCHR(s.st_mode)){cout << "c";}
+		else if (S_ISBLK(s.st_mode)){cout << "b";}
+		else if (S_ISFIFO(s.st_mode)){cout << "P";}
+		else if (S_ISLNK(s.st_mode)){cout << "l";}
+		else if (S_ISSOCK(s.st_mode)){cout << "s";}
+		else {cout << "?";}
+	
 		cout << ((s.st_mode & S_IRUSR) ? "r" : "-") << 
 			((s.st_mode & S_IWUSR) ? "w" : "-") <<
 			((s.st_mode & S_IXUSR) ? "x" : "-");
@@ -322,9 +392,6 @@ void outputFilesAL(vector<string> & v){
 		cout << ((s.st_mode & S_IROTH) ? "r" : "-") << 
 			((s.st_mode & S_IWOTH) ? "w" : "-") <<
 			((s.st_mode & S_IXOTH) ? "x" : "-");
-
-		//nlink_t         st_nlink;         /* Number of hard links */
-		//struct timespec st_mtimespec;     /* time of last data modification */
 		
 		// couts the hard links
 		cout << " " << s.st_nlink;
@@ -332,38 +399,29 @@ void outputFilesAL(vector<string> & v){
 		cout << " " << pw->pw_name << " " <<gr->gr_name;
 		// prints out the size of the file
 		cout << setw(max + 1) << s.st_size;
-		
-		// used with the ANSI codes for coloring
-		/*
-		switch (sb.st_mode & S_IFMT) {
-		case S_IFBLK:  printf("block device\n");            break;
-		case S_IFCHR:  printf("character device\n");        break;
-		case S_IFDIR:  printf("directory\n");               break;
-		case S_IFIFO:  printf("FIFO/pipe\n");               break;
-		case S_IFLNK:  printf("symlink\n");                 break;
-		case S_IFREG:  printf("regular file\n");            break;
-		case S_IFSOCK: printf("socket\n");                  break;
-		default:       printf("unknown?\n");                break;
-		}			
-		*/
+
 		struct tm timespecs;
 		localtime_r(&s.st_mtime, &timespecs);
 		char buff[20];
 		strftime((char*)&buff, 20, " %b %d %H:%M", & timespecs);
 		printf("%s ", buff);
 		
-		// prints the file at the end
-		cout << " " << v.at(i).c_str() << endl;
-		
-	}
-	
+		if (v.at(i)[0] == '.'){
+			cout << hidden << v.at(i) << "\033[0m\033[0m" << " ";
+		}
+		else if(S_ISDIR(s.st_mode)){
+			cout <<  directory << v.at(i) << "\033[0m" << " ";
+		}
+		else if (S_ISREG(s.st_mode) && (s.st_mode & S_IXUSR)){
+			cout << executable << v.at(i) << "\033[0m" << " ";
+		}
+		else {
+			cout << v.at(i) << " ";
+		}
+		cout << endl;
+	}	
 }
-
 // sort the vector before you call print function
-//
-//
-//
-
 //Comparison; not case sensitive.
 bool compareNoCase (string first, string second){
 	unsigned i=0;
@@ -375,9 +433,21 @@ bool compareNoCase (string first, string second){
 	if (first.length() < second.length()) return true;
 	else return false;
 }
-
+// this function sorts the vector alphabetically with any '.' files having priority
 void sortVector(vector<string> & v){
 	sort(v.begin(), v.end(), compareNoCase);
+}
+void recursive(vector<string> v){
+	cout << "Sorry, this feature is not available yet! :( " << endl;
+}
+void AllRecursive(vector<string> v){
+	cout << "Sorry, this feature is not available yet! :( " << endl;
+}
+void AllLongRecursive(vector<string> v){
+	cout << "Sorry, this feature is not available yet! :( " << endl;
+}
+void longRecursive(vector<string> v){
+	cout << "Sorry, this feature is not available yet! :( " << endl;
 }
 void ExecuteCommands(string Directory, string FLAGS){
 	
@@ -401,7 +471,7 @@ void ExecuteCommands(string Directory, string FLAGS){
 	char * DIRECTORY = new char[Directory.size() + 1];
 	DIRECTORY[Directory.size()] = 0;
 	memcpy(DIRECTORY,Directory.c_str(), Directory.size());
-	cout << "CONVERTED DIRECTORY: " << DIRECTORY << endl; 
+	//cout << "CONVERTED DIRECTORY: " << DIRECTORY << endl; 
 
 	// ls
 	if (A == false && L == false && R == false){
@@ -421,9 +491,12 @@ void ExecuteCommands(string Directory, string FLAGS){
 		sortVector(files_Directories);
 		outputFilesL(files_Directories);	
 	}
-	// ls -R
+	// ls -R ******
 	else if (A == false && L == false && R == true){
-	
+		fillDirectories_files(DIRECTORY, files_Directories);
+		sortVector(files_Directories);
+		// not yet supported
+		recursive(files_Directories);
 	}
 	// ls -a -l
 	else if (A == true && L == true && R == false){
@@ -431,24 +504,29 @@ void ExecuteCommands(string Directory, string FLAGS){
 		sortVector(files_Directories);
 		outputFilesAL(files_Directories);
 	}
-	// ls -a -R
+	// ls -a -R ******
 	else if (A == true && L == false && R == true){
-	
+		fillDirectories_files(DIRECTORY, files_Directories);
+		sortVector(files_Directories);
+		// not yet supported
+		AllRecursive(files_Directories);
 	}
-	// ls -a -l -R
+	// ls -a -l -R *****
 	else if (A == true && L == true && R == true){
-	
+		fillDirectories_files(DIRECTORY, files_Directories);
+		sortVector(files_Directories);
+		// not yet supported
+		AllLongRecursive(files_Directories);
 	}
-	// ls -l -R
+	// ls -l -R ****
 	else if (A == false && L == true && R == true){
-	
+		fillDirectories_files(DIRECTORY, files_Directories);
+		sortVector(files_Directories);
+		// not yet supported
+		longRecursive(files_Directories);
 	}
 	
 	// deallocates dynamic memory
 	delete DIRECTORY;	
 }
-
-
-
-
 #endif
