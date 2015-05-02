@@ -39,7 +39,7 @@ ls:
 	#make cp
 cp:	
 	cd $(src) && $(CXX) $(CPPFLAGS) -o $(CpEXECUTABLE) $(CpSOURCECODE)
-	cd $(src) && mv $(LsEXECUTABLE) ../bin
+	cd $(src) && mv $(CpEXECUTABLE) ../bin
 
 clean: 
 	echo "DELETING BIN DIRECTORY IN ROOT FOLDER"
