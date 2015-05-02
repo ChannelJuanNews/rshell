@@ -33,4 +33,14 @@ $ bin/rshell
 * If rshell crashes while in session, you can either re-run rshell by typing `bin/rshell` OR delete the `bin` directory with `rf -rf bin` and then using `make` to relaunch rshell. 
 Alternatively, you can edit the makefile so it won't delete the `bin` directory upon successful exiting so every time you want to launch a new session OUTSIDE of rshell you run `bin/rshell` from the root directory. 
 
+##ls: Bugs, Behaviors and limitations
+
+* ``ls optional file directory of not a directory``: will result in an error
+
+* Multiple files and directories are not listed gracefully for a large nummber of files/directories
+
+* ``-R``: Command not supported. This goes for any mixture of flags that contain this flag. 
+
+* The green color for executable files only works for a small amount of time. When make is ran, bin/ls is called on bin and all executable files are green. However succesive calls to ``bin/ls bin`` will result in a blue coloring, rather than green. 
+
 NOTE: While this may not be a perfect implementation of an actual shell/terminal, it is pretty chill. If you would like to contribute to this just fork it and fix my bugs LOLOLOLOLOL
