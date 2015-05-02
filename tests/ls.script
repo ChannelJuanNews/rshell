@@ -1,11 +1,13 @@
-Script started on Fri 01 May 2015 08:37:25 PM PDT
-~
-jruel006@hammer $ cd Desktop/rshell
-~/Desktop/rshell
-jruel006@hammer $ ls
-\  LICENSE  Makefile  README.md  [0m[38;5;27msrc[0m/  [38;5;27mtests[0m/
-[m~/Desktop/rshell
-jruel006@hammer $ rm[K[Kmake
+Script started on Sat May  2 04:42:24 2015
+[?1034hbash-3.2$ ls[K[Kls
+exec.script ls.script
+bash-3.2$ cd ..
+bash-3.2$ bin/ls
+
+\           [1;34mbin        [0m LICENSE     
+Makefile    README.md   [1;34msrc        [0m [1;34mtests      [0m 
+bash-3.2$ bin/ls[K[K[K[K[K[Krm -rf bin
+bash-3.2$ make
 #echo "CREATED BIN DIRECTORY IN ROOT DIRECTORY"
 mkdir bin
 # goes to source folder where main.cpp is and compiles to executable named rshell
@@ -17,14 +19,12 @@ cd src && mv rshell ../bin
 #DELETES THE BIN DIRECTORY UPON EXITING OF rshell 
 #make clean
 make ls
-make[1]: Entering directory `/home/csmajs/jruel006/Desktop/rshell'
 cd src && g++ -Wall -Werror -ansi -pedantic -o ls ls.cpp
 cd src && mv ls ../bin
 cd bin && ./ls
 
 [1;32mls      [0m [1;32mrshell  [0m 
 #make cp
-make[1]: Leaving directory `/home/csmajs/jruel006/Desktop/rshell'
 cd src && g++ -Wall -Werror -ansi -pedantic -o ls ls.cpp
 cd src && mv ls ../bin
 cd bin && ./ls
@@ -32,173 +32,155 @@ cd bin && ./ls
 [1;32mls      [0m [1;32mrshell  [0m 
 #make cp
 cd src && g++ -Wall -Werror -ansi -pedantic -o cp cp.cpp
-g++: cp.cpp: No such file or directory
-g++: no input files
-make: *** [cp] Error 1
-~/Desktop/rshell
-jruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I [Kjruel006@hammer $ # The GREEN coloring for executable folders only works at the beginning when I run iwh[K[K[Kbin.ls with make[K[K[K[K[K[K[K[K[K[K[K[K[K/ls with make :(
-~/Desktop/rshell
-jruel006@hammer $ bin.[K/ls
+cd src && mv cp ../bin
+bash-3.2$ # My ls and s[Krshell are green[K[K[K[K[KGREEN here but[C buts buti butn butc bute but[C butt buth bute buty but[C buta butr bute but[C bute butx bute butc butu butt buta butb butl bute buts but[C butb butu butt but[C butt but [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ch butt[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce but[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cy but[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+ butt but[Cu but[C[Cr butn but[C but[C[C[C[C[K[K[K[Kblue everywhere else for some reaon[K[Kson
+bash-3.2$ bin/ls
 
 \           [1;34mbin        [0m LICENSE     
 Makefile    README.md   [1;34msrc        [0m [1;34mtests      [0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls -a
+bash-3.2$ bin/ls -a
 
 [1;34m[1;40m.              [0m[0m 
 [1;34m[1;40m..             [0m[0m [1;34m[1;40m.git           [0m[0m \               [1;34mbin            [0m LICENSE         
 Makefile        README.md       [1;34msrc            [0m [1;34mtests          [0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/[K/ls -l
-
-total 40
-do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
-do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
-Error with getting group name: Success
-~/Desktop/rshell
-jruel006@hammer $ #WHA [KT THE HEK[KCK SCRIPT IS NOT LETTINGME[K[K ME RUN MY COMMANDS RIGHT
-~/Desktop/rshell
-jruel006@hammer $ bin/ls -l
-
-total 40
--rw------- 1 jruel006 csmajs  255 Apr 19 20:22 \ 
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34mbin[0m 
--rw------- 1 jruel006 csmajs 1079 Apr 15 21:49 LICENSE 
-do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
--rw------- 1 jruel006 csmajs 1315 May 01 20:25 Makefile 
--rw------- 1 jruel006 csmajs 2302 Apr 27 15:37 README.md 
-do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34msrc[0m 
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34mtests[0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls -a -l
-
-total 40
-drwx------ 6 jruel006 csmajs 4096 May 01 20:31 [1;34m[1;40m.[0m[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34m[1;40m..[0m[0m 
-do_ypcall: clnt_call: RPC: Unable to send; errno = Operation not permitted
-drwx------ 8 jruel006 csmajs 4096 May 01 20:25 [1;34m[1;40m.git[0m[0m 
--rw------- 1 jruel006 csmajs  255 Apr 19 20:22 \ 
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34mbin[0m 
--rw------- 1 jruel006 csmajs 1079 Apr 15 21:49 LICENSE 
--rw------- 1 jruel006 csmajs 1315 May 01 20:25 Makefile 
--rw------- 1 jruel006 csmajs 2302 Apr 27 15:37 README.md 
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34msrc[0m 
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34mtests[0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/[K/ls -la
-
-total 40
-drwx------ 6 jruel006 csmajs 4096 May 01 20:31 [1;34m[1;40m.[0m[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34m[1;40m..[0m[0m 
-drwx------ 8 jruel006 csmajs 4096 May 01 20:25 [1;34m[1;40m.git[0m[0m 
--rw------- 1 jruel006 csmajs  255 Apr 19 20:22 \ 
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34mbin[0m 
--rw------- 1 jruel006 csmajs 1079 Apr 15 21:49 LICENSE 
--rw------- 1 jruel006 csmajs 1315 May 01 20:25 Makefile 
--rw------- 1 jruel006 csmajs 2302 Apr 27 15:37 README.md 
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34msrc[0m 
-drwx------ 2 jruel006 csmajs 4096 May 01 20:31 [1;34mtests[0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls ~/
-
-[1;34m_CACHE_CLEAN_                     [0m [1;34maddons.json                       [0m 
-[1;34maddons.sqlite                     [0m [1;34maddons.sqlite-journal             [0m [1;34mblocklist.xml                     [0m [1;34mbookmarkbackups                   [0m [1;34mCache                             [0m 
-[1;34mcache2                            [0m [1;34mcert8.db                          [0m [1;34mchromeappsstore.sqlite            [0m [1;34mcompatibility.ini                 [0m [1;34mcontent-prefs.sqlite              [0m 
-[1;34mcookies.sqlite                    [0m [1;34mcookies.sqlite-shm                [0m [1;34mcookies.sqlite-wal                [0m [1;34mDesktop                           [0m [1;34mDownloads                         [0m 
-[1;34mextensions.ini                    [0m [1;34mextensions.json                   [0m [1;34mextensions.sqlite                 [0m [1;34mextensions.sqlite-journal         [0m [1;34mformhistory.sqlite                [0m 
-[1;34mhealthreport                      [0m [1;34mhealthreport.sqlite               [0m [1;34mhealthreport.sqlite-shm           [0m [1;34mhealthreport.sqlite-wal           [0m [1;34mkey3.db                           [0m 
-[1;34mlocalstore.rdf                    [0m [1;34mlock                              [0m [1;34mmimeTypes.rdf                     [0m [1;34mpermissions.sqlite                [0m [1;34mplaces.sqlite                     [0m 
-[1;34mplaces.sqlite-shm                 [0m [1;34mplaces.sqlite-wal                 [0m [1;34mpluginreg.dat                     [0m [1;34mprefs.js                          [0m [1;34msafebrowsing                      [0m 
-[1;34msearch.json                       [0m [1;34msecmod.db                         [0m [1;34msessionCheckpoints.json           [0m [1;34msignons.sqlite                    [0m [1;34mstartupCache                      [0m 
-[1;34mthumbnails                        [0m [1;34mtimes.json                        [0m [1;34mwebapps                           [0m [1;34mwebappsstore.sqlite               [0m [1;34mwebappsstore.sqlite-shm           [0m 
-[1;34mwebappsstore.sqlite-wal           [0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls -a ~
-
-[1;34m[1;40m.                                                             [0m[0m 
-[1;34m[1;40m..                                                            [0m[0m [1;34m[1;40m.adobe                                                        [0m[0m [1;34m[1;40m.bash_history                                                 [0m[0m [1;34m[1;40m.bash_logout                                                  [0m[0m [1;34m[1;40m.bashrc                                                       [0m[0m 
-[1;34m[1;40m.cache                                                        [0m[0m [1;34m[1;40m.config                                                       [0m[0m [1;34m[1;40m.dbus                                                         [0m[0m [1;34m[1;40m.DCOPserver_well.cs.ucr.edu_localhost:26                      [0m[0m [1;34m[1;40m.DCOPserver_well.cs.ucr.edu_localhost_26                      [0m[0m 
-[1;34m[1;40m.dmrc                                                         [0m[0m [1;34m[1;40m.eggcups                                                      [0m[0m [1;34m[1;40m.emacs.d                                                      [0m[0m [1;34m[1;40m.evolution                                                    [0m[0m [1;34m[1;40m.fontconfig                                                   [0m[0m 
-[1;34m[1;40m.gconf                                                        [0m[0m [1;34m[1;40m.gconfd                                                       [0m[0m [1;34m[1;40m.gitconfig                                                    [0m[0m [1;34m[1;40m.gitlearn                                                     [0m[0m [1;34m[1;40m.gnome                                                        [0m[0m 
-[1;34m[1;40m.gnome2                                                       [0m[0m [1;34m[1;40m.gnome2_private                                               [0m[0m [1;34m[1;40m.gnupg                                                        [0m[0m [1;34m[1;40m.gstreamer-0.10                                               [0m[0m [1;34m[1;40m.gtkrc-1.2-gnome2                                             [0m[0m 
-[1;34m[1;40m.ICEauthority                                                 [0m[0m [1;34m[1;40m.kde                                                          [0m[0m [1;34m[1;40m.lesshst                                                      [0m[0m [1;34m[1;40m.local                                                        [0m[0m [1;34m[1;40m.macromedia                                                   [0m[0m 
-[1;34m[1;40m.mcop                                                         [0m[0m [1;34m[1;40m.mcoprc                                                       [0m[0m [1;34m[1;40m.metacity                                                     [0m[0m [1;34m[1;40m.mozilla                                                      [0m[0m [1;34m[1;40m.nautilus                                                     [0m[0m 
-[1;34m[1;40m.openoffice.org                                               [0m[0m [1;34m[1;40m.parentlock                                                   [0m[0m [1;34m[1;40m.pki                                                          [0m[0m [1;34m[1;40m.procmailrc                                                   [0m[0m [1;34m[1;40m.profile                                                      [0m[0m 
-[1;34m[1;40m.qt                                                           [0m[0m [1;34m[1;40m.redhat                                                       [0m[0m [1;34m[1;40m.Trash                                                        [0m[0m [1;34m[1;40m.vim                                                          [0m[0m [1;34m[1;40m.viminfo                                                      [0m[0m 
-[1;34m[1;40m.vimrc                                                        [0m[0m [1;34m[1;40m.vimrc.swp                                                    [0m[0m [1;34m[1;40m.Xauthority                                                   [0m[0m [1;34m_CACHE_CLEAN_                                                 [0m [1;34maddons.json                                                   [0m 
-[1;34maddons.sqlite                                                 [0m [1;34maddons.sqlite-journal                                         [0m [1;34mblocklist.xml                                                 [0m [1;34mbookmarkbackups                                               [0m [1;34mCache                                                         [0m 
-[1;34mcache2                                                        [0m [1;34mcert8.db                                                      [0m [1;34mchromeappsstore.sqlite                                        [0m [1;34mcompatibility.ini                                             [0m [1;34mcontent-prefs.sqlite                                          [0m 
-[1;34mcookies.sqlite                                                [0m [1;34mcookies.sqlite-shm                                            [0m [1;34mcookies.sqlite-wal                                            [0m [1;34mDesktop                                                       [0m [1;34mDownloads                                                     [0m 
-[1;34mextensions.ini                                                [0m [1;34mextensions.json                                               [0m [1;34mextensions.sqlite                                             [0m [1;34mextensions.sqlite-journal                                     [0m [1;34mformhistory.sqlite                                            [0m 
-[1;34mhealthreport                                                  [0m [1;34mhealthreport.sqlite                                           [0m [1;34mhealthreport.sqlite-shm                                       [0m [1;34mhealthreport.sqlite-wal                                       [0m [1;34mkey3.db                                                       [0m 
-[1;34mlocalstore.rdf                                                [0m [1;34mlock                                                          [0m [1;34mmimeTypes.rdf                                                 [0m [1;34mpermissions.sqlite                                            [0m [1;34mplaces.sqlite                                                 [0m 
-[1;34mplaces.sqlite-shm                                             [0m [1;34mplaces.sqlite-wal                                             [0m [1;34mpluginreg.dat                                                 [0m [1;34mprefs.js                                                      [0m [1;34msafebrowsing                                                  [0m 
-[1;34msearch.json                                                   [0m [1;34msecmod.db                                                     [0m [1;34msessionCheckpoints.json                                       [0m [1;34msignons.sqlite                                                [0m [1;34mstartupCache                                                  [0m 
-[1;34mthumbnails                                                    [0m [1;34mtimes.json                                                    [0m [1;34mwebapps                                                       [0m [1;34mwebappsstore.sqlite                                           [0m [1;34mwebappsstore.sqlite-shm                                       [0m 
-[1;34mwebappsstore.sqlite-wal                                       [0m 
-~/Desktop/rshell
-jruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ [Kjruel006@hammer $ #Ahhhhh this is not supposed toh[K happen :(
-~/Desktop/rshell
-jruel006@hammer $ bin/ls ~/Desktop/locl[K[K[K[KCS061
-
-[1;34massn2.asm          [0m [1;34massn3.asm          [0m [1;34massn3.asm~         [0m [1;34massn4.asm          [0m 
-[1;34massn4.asm~         [0m [1;34mCS061Assignments   [0m [1;34mCS061Labs          [0m [1;34mtest1.asm          [0m [1;34mtest1.asm~         [0m 
-
-~/Desktop/rshell
-jruel006@hammer $ bin/ls -R
-
-Sorry, this feature is not available yet! :( 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls -alr[K[K[Krla
-
-Sorry, this feature is not available yet! :( 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls -al[K[Kla[K[Kl   -l[K[K[K[K-a src
-
-total 24
-drwx------ 6 jruel006 csmajs 4096 May 01 20:31 [1;34m[1;40m.[0m[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34m[1;40m..[0m[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34mfunctions.h[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34mls.cpp[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34mls.h[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34mmain.cpp[0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls 
-
-\           [1;34mbin        [0m LICENSE     
-Makefile    README.md   [1;34msrc        [0m [1;34mtests      [0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls ..
-
-[1;34mCS061         [0m [1;34mfirstrepo     [0m 
-[1;34mforkTest      [0m [1;34mrshell        [0m [1;34mtest1         [0m [1;34mtrash.desktop [0m [1;34mucr-cs100     [0m 
-
-~/Desktop/rshell
-jruel006@hammer $ bin/ls ../rshell
-
-\           [1;34mbin        [0m LICENSE     
-Makefile    README.md   [1;34msrc        [0m [1;34mtests      [0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls //[K[K../rshell/t[Kbin
-
-[1;34mls      [0m [1;34mrshell  [0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls ../rshell/bin -a[C[4h [4l[4h-[4l[4hl[4l[C[C[C
+bash-3.2$ bin/ls -a[Kl
 
 total 16
-drwx------ 6 jruel006 csmajs 4096 May 01 20:31 [1;34m[1;40m.[0m[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34m[1;40m..[0m[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34mls[0m 
-drwx------ 8 jruel006 csmajs 4096 Apr 15 21:49 [1;34mrshell[0m 
-~/Desktop/rshell
-jruel006@hammer $ bin/ls -la[K[Kra[K[Klr
+-rw-r--r-- 1 JuanRuelas staff  255 May 02 04:41 \ 
+drwxr-xr-x 5 JuanRuelas staff  170 May 02 04:43 [1;34mbin[0m 
+-rw-r--r-- 1 JuanRuelas staff 1079 May 02 04:41 LICENSE 
+-rw-r--r-- 1 JuanRuelas staff 1315 May 02 04:41 Makefile 
+-rw-r--r-- 1 JuanRuelas staff 2865 May 02 04:41 README.md 
+drwxr-xr-x 8 JuanRuelas staff  272 May 02 04:43 [1;34msrc[0m 
+drwxr-xr-x 4 JuanRuelas staff  136 May 02 04:42 [1;34mtests[0m 
+bash-3.2$ bin/ls -l -l
+
+total 16
+-rw-r--r-- 1 JuanRuelas staff  255 May 02 04:41 \ 
+drwxr-xr-x 5 JuanRuelas staff  170 May 02 04:43 [1;34mbin[0m 
+-rw-r--r-- 1 JuanRuelas staff 1079 May 02 04:41 LICENSE 
+-rw-r--r-- 1 JuanRuelas staff 1315 May 02 04:41 Makefile 
+-rw-r--r-- 1 JuanRuelas staff 2865 May 02 04:41 README.md 
+drwxr-xr-x 8 JuanRuelas staff  272 May 02 04:43 [1;34msrc[0m 
+drwxr-xr-x 4 JuanRuelas staff  136 May 02 04:42 [1;34mtests[0m 
+bash-3.2$ bin/ls -l -l[Ka
+
+total 16
+drwxr-xr-x 10 JuanRuelas staff  340 May 02 04:43 [1;34m[1;40m.[0m[0m 
+drwx------ 18 JuanRuelas staff  612 May 02 04:41 [1;34m[1;40m..[0m[0m 
+drwxr-xr-x 12 JuanRuelas staff  408 May 02 04:41 [1;34m[1;40m.git[0m[0m 
+-rw-r--r-- 1 JuanRuelas staff  255 May 02 04:41 \ 
+drwxr-xr-x 5 JuanRuelas staff  170 May 02 04:43 [1;34mbin[0m 
+-rw-r--r-- 1 JuanRuelas staff 1079 May 02 04:41 LICENSE 
+-rw-r--r-- 1 JuanRuelas staff 1315 May 02 04:41 Makefile 
+-rw-r--r-- 1 JuanRuelas staff 2865 May 02 04:41 README.md 
+drwxr-xr-x 8 JuanRuelas staff  272 May 02 04:43 [1;34msrc[0m 
+drwxr-xr-x 4 JuanRuelas staff  136 May 02 04:42 [1;34mtests[0m 
+bash-3.2$ bin/ls -l -a[K[K[K[Kal
+
+total 16
+drwxr-xr-x 10 JuanRuelas staff  340 May 02 04:43 [1;34m[1;40m.[0m[0m 
+drwx------ 18 JuanRuelas staff  612 May 02 04:41 [1;34m[1;40m..[0m[0m 
+drwxr-xr-x 12 JuanRuelas staff  408 May 02 04:41 [1;34m[1;40m.git[0m[0m 
+-rw-r--r-- 1 JuanRuelas staff  255 May 02 04:41 \ 
+drwxr-xr-x 5 JuanRuelas staff  170 May 02 04:43 [1;34mbin[0m 
+-rw-r--r-- 1 JuanRuelas staff 1079 May 02 04:41 LICENSE 
+-rw-r--r-- 1 JuanRuelas staff 1315 May 02 04:41 Makefile 
+-rw-r--r-- 1 JuanRuelas staff 2865 May 02 04:41 README.md 
+drwxr-xr-x 8 JuanRuelas staff  272 May 02 04:43 [1;34msrc[0m 
+drwxr-xr-x 4 JuanRuelas staff  136 May 02 04:42 [1;34mtests[0m 
+bash-3.2$ bin/ls -al[K[K[K~/
+
+[1;34mApplications                        [0m 
+[1;34mApplications (Parallels)            [0m [1;34mDesktop                             [0m [1;34mDocuments                           [0m [1;34mDownloads                           [0m [1;34mhello there                         [0m 
+[1;34mhhvm                                [0m [1;34mKobold2D                            [0m [1;34mLibrary                             [0m [1;34mMovies                              [0m [1;34mMusic                               [0m 
+[1;34mPictures                            [0m [1;34mPublic                              [0m [1;34mSamsung                             [0m [1;34mtutorial                            [0m 
+bash-3.2$ bin/ls ~/Desktop
+
+[1;34m10A-Solutions_to_PraMid.pdf[0m [1;34m15S-10A-PraMid.pdf         [0m 
+[1;34m9810449_orig.png           [0m [1;34mClasses                    [0m [1;34mHTML Workshop              [0m [1;34mIdeas and shit.docx        [0m [1;34mlab3 2                     [0m 
+[1;34mlinux.words                [0m [1;34mrshell                     [0m [1;34mrshell-2.0                 [0m [1;34mshellTest                  [0m [1;34mucr-cs100                  [0m 
+[1;34mUniversal                  [0m [1;34mWeb-Learning               [0m 
+bash-3.2$ bin/ls ~/Desktop -a
+
+[1;34m[1;40m.                                      [0m[0m 
+[1;34m[1;40m..                                     [0m[0m [1;34m[1;40m.DS_Store                              [0m[0m [1;34m[1;40m.localized                             [0m[0m [1;34m10A-Solutions_to_PraMid.pdf            [0m [1;34m15S-10A-PraMid.pdf                     [0m 
+[1;34m9810449_orig.png                       [0m [1;34mClasses                                [0m [1;34mHTML Workshop                          [0m [1;34mIdeas and shit.docx                    [0m [1;34mlab3 2                                 [0m 
+[1;34mlinux.words                            [0m [1;34mrshell                                 [0m [1;34mrshell-2.0                             [0m [1;34mshellTest                              [0m [1;34mucr-cs100                              [0m 
+[1;34mUniversal                              [0m [1;34mWeb-Learning                           [0m 
+bash-3.2$ bin/ls ~/Desktop -al
+
+total 0
+drwxr-xr-x 10 JuanRuelas staff 340 May 02 04:43 [1;34m[1;40m.[0m[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34m[1;40m..[0m[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34m[1;40m.DS_Store[0m[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34m[1;40m.localized[0m[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34m10A-Solutions_to_PraMid.pdf[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34m15S-10A-PraMid.pdf[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34m9810449_orig.png[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mClasses[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mHTML Workshop[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mIdeas and shit.docx[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mlab3 2[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mlinux.words[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mrshell[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mrshell-2.0[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mshellTest[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mucr-cs100[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mUniversal[0m 
+drwx------ 18 JuanRuelas staff 612 May 02 04:41 [1;34mWeb-Learning[0m 
+bash-3.2$ bin/ls ~/Desktop -alr
 
 Sorry, this feature is not available yet! :( 
-~/Desktop/rshell
-jruel006@hammer $ # I did not th[K[Kget the -R to work :(
-~/Desktop/rshell
-jruel006@hammer $ ls -L[KA[K[K[K[K[Kexit
+bash-3.2$ bin/ls ~/Desktop -alr[K[K[K[K[K[K[K[K[K[K[K[K[K[K-R
+
+Sorry, this feature is not available yet! :( 
+bash-3.2$ bin/ls -R[Kra
+
+Sorry, this feature is not available yet! :( 
+bash-3.2$ bin/ls -ra[Kl
+
+Sorry, this feature is not available yet! :( 
+bash-3.2$ bin/ls -rl[K[K[K-
+
+\           [1;34mbin        [0m LICENSE     
+Makefile    README.md   [1;34msrc        [0m [1;34mtests      [0m 
+bash-3.2$ bin/ls -[K../
+
+[1;34m10A-Solutions_to_PraMid.pdf[0m [1;34m15S-10A-PraMid.pdf         [0m 
+[1;34m9810449_orig.png           [0m [1;34mClasses                    [0m [1;34mHTML Workshop              [0m [1;34mIdeas and shit.docx        [0m [1;34mlab3 2                     [0m 
+[1;34mlinux.words                [0m [1;34mrshell                     [0m [1;34mrshell-2.0                 [0m [1;34mshellTest                  [0m [1;34mucr-cs100                  [0m 
+[1;34mUniversal                  [0m [1;34mWeb-Learning               [0m 
+bash-3.2$ bin/ls ../..[K.
+
+[1;34mApplications                        [0m 
+[1;34mApplications (Parallels)            [0m [1;34mDesktop                             [0m [1;34mDocuments                           [0m [1;34mDownloads                           [0m [1;34mhello there                         [0m 
+[1;34mhhvm                                [0m [1;34mKobold2D                            [0m [1;34mLibrary                             [0m [1;34mMovies                              [0m [1;34mMusic                               [0m 
+[1;34mPictures                            [0m [1;34mPublic                              [0m [1;34mSamsung                             [0m [1;34mtutorial                            [0m 
+bash-3.2$ bin/ls ../../[K[K[K[K[K[Kbin/..
+
+\           [1;34mbin        [0m LICENSE     
+Makefile    README.md   [1;34msrc        [0m [1;34mtests      [0m 
+bash-3.2$ bin/ls bin/../[K/src
+
+[1;34mcp.cpp           [0m [1;34mfunctions.h      [0m [1;34mls.cpp           [0m [1;34mls.h             [0m 
+[1;34mmain.cpp         [0m [1;34mTimer.h          [0m 
+bash-3.2$ bin/ls bin/../src[K[K[K[K[K[K
+
+[1;34mcp      [0m [1;34mls      [0m [1;34mrshell  [0m 
+bash-3.2$ #HEre [K[K[K[Kere my cp, sl[K[Kls and rshell are in blue instead of green! Id [K[K don't know  why [K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kd[K
+bash-3.2$ #here m[K[K[K[K[K[K[Kbin/ls bin/
+
+[1;34mcp      [0m [1;34mls      [0m [1;34mrshell  [0m 
+bash-3.2$ #here my ls and cp and rshell are s[Kblue insteado[K of green. I don't know  why
+bash-3.2$ # They keep[K[K[K[Kchanged from originally green to blue
+bash-3.2$ bin/ls 
+
+\           [1;34mbin        [0m LICENSE     
+Makefile    README.md   [1;34msrc        [0m [1;34mtests      [0m 
+bash-3.2$ exit
 exit
 
-Script done on Fri 01 May 2015 08:45:11 PM PDT
+Script done on Sat May  2 04:48:22 2015
