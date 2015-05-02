@@ -527,6 +527,6 @@ void ExecuteCommands(string Directory, string FLAGS){
 	}
 	
 	// deallocates dynamic memory
-	delete DIRECTORY;	
+	delete [] DIRECTORY;	
 }
 #endif
