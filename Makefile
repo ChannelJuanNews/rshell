@@ -1,14 +1,20 @@
 #Initializes the aliases to be used in target recipies
 
-SOURCECODE     = main.cpp
-LsSOURCECODE   = ls.cpp
-CpSOURCECODE   = cp.cpp
+SOURCECODE    = main.cpp
+LsSOURCECODE  = ls.cpp
+CpSOURCECODE  = cp.cpp
+MvSOURCECODE  = mv.cpp
+RmSOURCECODE  = rm.cpp
+
 src            = src
 CXX            = g++
 CPPFLAGS       = -Wall -Werror -ansi -pedantic
-EXECUTABLE     = rshell
-LsEXECUTABLE   = ls
-CpEXECUTABLE   = cp
+
+EXECUTABLE    = rshell
+LsEXECUTABLE  = ls
+CpEXECUTABLE  = cp
+MvEXECUTABLE  = mv
+RmEXECUTABLE  = rm 
 
 #bin (binary) --> output executables go here
 #src          --> source code goes here
@@ -16,7 +22,7 @@ CpEXECUTABLE   = cp
 #obj          --> contains all .o (object) files
 
 #builds the bin directory before compiling
-all: rshell ls cp
+all: rshell ls cp mv rm
 	
 rshell:
 	
@@ -40,6 +46,14 @@ ls:
 cp:	
 	cd $(src) && $(CXX) $(CPPFLAGS) -o $(CpEXECUTABLE) $(CpSOURCECODE)
 	cd $(src) && mv $(CpEXECUTABLE) ../bin
+
+mv: 
+	cd $(src) && $(CXX) $(CPPFLAGS) -o $(MvEXECUTABLE) $(MvSOURCECODE)
+	cd $(src) && mv $(MvEXECUTABLE) ../bin
+
+rm: 
+	cd $(src) && $(CXX) $(CPPFLAGS) -o $(RmEXECUTABLE) $(RmSOURCECODE)
+	cd $(src) && mv $(RmEXECUTABLE) ../bin
 
 clean: 
 	echo "DELETING BIN DIRECTORY IN ROOT FOLDER"
