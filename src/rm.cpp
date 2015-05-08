@@ -49,7 +49,12 @@ void removeShit(int argc, char * argv[], bool containsR){
 	for (int i = 1; i < argc; i++){
 		// Gathers that status of a file/directory
 		struct stat s;
-		if (stat(argv[i], &s) == 1){ perror("There was an error gathering total");exit(1);}
+		// if yo
+		if (stat(argv[i], &s) == -1){
+			if (strcmp(argv[i], "-r") == 0){continue;}
+			cout << "rm: cannot remove " << "'" << argv[i] << "': " << flush;
+			perror(argv[i]); exit(1);
+		}
 		if (S_ISDIR(s.st_mode) == -1){ perror(argv[i]); exit(1);}
 		// If it is a directory AND it does NOT contains the -r flag then DO NOT DELETE
 		if (S_ISDIR(s.st_mode)){
