@@ -23,16 +23,12 @@ int main(int argc, char * argv[] ) {
 	rshellMessage();
 	string commands;
 	unsigned loopCounter = 0;
-	bool loop = true;
-	vector <char *> v(0);
-	vector <char *> current(0);
-
 	
-	while(loop){
+	while(true){
 		
 		DisplayUserHost(loopCounter);
 		getline(std::cin, commands);
-		v.clear();
+		if (commands ==  "exit"){exit(0);}
 		if (tokenizeInput(commands) == true){exit(0);}
 		loopCounter++;
 	}
