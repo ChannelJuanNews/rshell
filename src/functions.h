@@ -230,7 +230,7 @@ bool containsLogic(std::vector<char*> &v){
 	}return false;
 }
 
-void processOutInAppend(vector<char*>v, vector<char*>&inf, vector<char*>&outf, vector<char*>&outAppen,vector<char*>&trippleIn, vector<char*>&newCommands){
+void processOutInAppend(vector<char*>v, vector<char*>&inf, vector<char*>&outf, vector<char*>&outAppen,vector<char*>&trippleIn, vector<char*> & NumOut, vector<char*>& NumOutAppend, vector<char*>&newCommands){
 
 	for(unsigned i = 0; i < v.size(); i++){
 		if (strcmp(v.at(i), "<") == 0 && i != 0 && i+1 < v.size()){
@@ -253,17 +253,12 @@ void processOutInAppend(vector<char*>v, vector<char*>&inf, vector<char*>&outf, v
 			//cout << "OutRedirAppend file is: " << v.at(i+1) << endl;
 		}
 		if ( strcmp(v.at(i),"<<<") == 0 && i!= 0 && i+1 < v.size()){
-			/*while (i+1 < v.size()){
-				trippleIn.push_back(v.at(i+1));
-				v.erase(v.begin() + i + 1);
-				i++;
-			}*/
 			//cout << "Current Command:!!!: " << v.at(i) << endl;
 			if (strcmp(v.at(i+1), "<<<") == 0){/*cout << "we have more than one tripple input!" << endl;*/ break;}
 			if (strcmp(v.at(i+1), "<") == 0){/*cout << "we have other input and stuff" << endl;*/ continue;}
 			if (strcmp(v.at(i+1), ">") == 0){/*cout << "we have other input and stuff" << endl;*/ continue;}
-			if (strcmp(v.at(i+1), ">>") == 0){/*cout << "we have other input and stuff" << endl;*/ continue;}
-
+			if (strcmp(v.at(i+1), ">>") == 0){/*cout << "we have other input and stuff" << endl;*/ continue;}	
+		
 			trippleIn.push_back(v.at(i+1));
 			v.erase(v.begin() + i + 1);
 			i--;
@@ -271,41 +266,81 @@ void processOutInAppend(vector<char*>v, vector<char*>&inf, vector<char*>&outf, v
 			// cout << "TrippleIn file is: " << v.at(i+1) << end
 			//l;
 		}
+		if (v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
+			if (v.at(i)[1] == '>' && i+1 < v.size()){
+				if (v.at(i)[2] == '>'){}
+				else{
+					NumOut.push_back(v.at(i+1));
+					v.erase(v.begin()+i+1);
+					continue;
+				}
+			}
+		}
+		if (v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
+			if (v.at(i)[1] == '>' && i+1 < v.size()){
+				if(v.at(i)[2] != '\0' && v.at(i)[2] == '>'){
+					NumOutAppend.push_back(v.at(i+1));
+					v.erase(v.begin()+i+1);
+					continue;
+				}		
+			}
+		}
 		if (strcmp(v.at(i), "<<<") == 0){continue;}
 		//cout <<"Processed Command is: " << v.at(i) << endl;
 		newCommands.push_back(v.at(i));
 	}	
 }
 
-bool containsInRedir(vector<char*>&v){
+bool containsInRedir(const vector<char*>&v){
 	for (unsigned i = 0; i < v.size(); i++){
 		if(strcmp(v.at(i), "<") == 0){return true;}
 	}/*cout << "Does not contain <: \n";*/ return false;
 }
 
-bool containsOutRedir(vector<char*>&v){
+bool containsOutRedir(const vector<char*>&v){
 	for (unsigned i = 0; i < v.size(); i++){
 		if (strcmp(v.at(i),">") == 0){return true;}
 	}/*cout << "Does not contain >: \n";*/ return false;
 }
-
-bool containsOutRedirAppend(vector<char*>&v){
+bool containsOutRedirAppend(const vector<char*>&v){
 	for(unsigned i = 0; i < v.size(); i++){
 		if (strcmp(v.at(i),">>") == 0){return true;}
 	}/*cout << "Does not contain >>: \n"*/;return false;
 }
-
-bool containsTrippleIn(vector<char*>&v){
+bool containsTrippleIn(const vector<char*>&v){
 	for(unsigned i = 0; i < v.size(); i++){
 		if(strcmp(v.at(i), "<<<") == 0){return true;}
 	}/*cout << "Does not contain <<<: \n";*/return false;
 }
+bool containsOutFile(const vector<char*> &v){
+	for(unsigned i = 0; i < v.size(); i++){
+		if (v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
+			if (v.at(i)[1] == '>'){
+				if (v.at(i)[2] == '>'){return false;}
+				else{
+					return true;
+				}
+			}
+		}
+	}return false;
+}
+bool containsOutFileAppend(const vector<char*> &v){
+	for(unsigned i = 0; i < v.size(); i++){
+		if (v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
+			if (v.at(i)[1] == '>'){
+				if (v.at(i)[2] != '\0' && v.at(i)[2] == '>'){
+					return true;
+				}
+			}
+		}
+	}return false;
+}
 
-void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend, bool TrippleIn, vector<char*>&infiles, vector<char*>&outfiles, vector<char*>&outfilesAppend, vector<char*>&TRin){
+
+void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend, bool TrippleIn, bool NumOUT, bool NumOUTA, vector<char*>&infiles, vector<char*>&outfiles, vector<char*>&outfilesAppend, vector<char*>&TRin, vector<char*> NUMoutfiles, vector<char*> NUMoutfilesA, int FileD, int FileDApp){
 	
 	
 	//ofstream outputFile;//("data.txt");
-	char temp[9] = {'d','a','t','a','.','t','x','t','\0'};
 	int pid = fork();
 	if (pid == -1){
 		perror("Error with forking stuffs in I/O redir");
@@ -318,14 +353,6 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 				perror("Error closing in executeIO: outRedirAppend");
 				exit(1);
 			}
-			//outputFile.close();
-			/*if (TrippleIn){
-				close(0);
-				if(open(temp,O_RDWR, 0644) == -1){
-					perror("Error opening TRIPPLE IN,  in OUTREDIRAPPEND");
-					exit(1);
-				}
-			}*/
 			for (unsigned i = 0; i < outfilesAppend.size(); i++){
 				if (open(outfilesAppend.at(i), O_CREAT | O_RDWR | O_APPEND, 0644) == -1){
 					perror("Error opening in executeIO: outRedirAppend");
@@ -340,22 +367,43 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 				perror("Error closing in executeIO: outRedir");
 				exit(1);
 			}
-			//cout << "TEST?" << endl;
-			/*if (TrippleIn){
-				if (open(temp,O_RDWR, 0644) == -1){
-					perror("Error opening TRIPPLE IN,  in OUTREDIRAPPEND");
-					exit(1);
-				}
-			}*/
-			//outputFile.close();
 			for (unsigned i = 0; i < outfiles.size(); i++){
-				cout << "OUTFILES ARE: " << outfiles.at(i) << endl << flush;
+				//cout << "OUTFILES ARE: " << outfiles.at(i) << endl << flush;
 				if (open(outfiles.at(i), O_CREAT | O_RDWR | O_TRUNC, 0644) == -1){
 					perror("Error opening in executeIO: outRedir");
 					exit(1);
 				}
 			}
 			//cout << endl;
+		}
+		if(NumOUT){
+			// cout << "WE ARE THIS FAR!" << endl;
+			// cout << "The inputted file descrittor is!: " << FileD << endl;
+			if (close(FileD) == -1){
+				perror("Error closing in executeIO: outRedir");
+				exit(1);
+			}
+			for (unsigned i = 0; i < NUMoutfiles.size(); i++){
+				//cout << "OUTFILES ARE: " << NUMoutfiles.at(i) << endl << flush;
+				if (open(NUMoutfiles.at(i), O_CREAT | O_RDWR | O_TRUNC, 0644) == -1){
+					perror("Error opening in executeIO: outRedir");
+					exit(1);
+				}
+			}
+			//cout << endl;
+		}
+		if(NumOUTA){
+				
+			if (close(FileDApp) == -1){
+				perror("Error closing in executeIO: outRedirAppend");
+				exit(1);
+			}
+			for (unsigned i = 0; i < NUMoutfilesA.size(); i++){
+				if (open(NUMoutfilesA.at(i), O_CREAT | O_RDWR | O_APPEND, 0644) == -1){
+					perror("Error opening in executeIO: outRedirAppend");
+					exit(1);
+				}
+			}
 		}
 
 		if (inRedir){
@@ -394,7 +442,7 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 				exit(1);
 			}
 
-			cout << "This is the string being outputed: " << temp << endl; 
+			//cout << "This is the string being outputed: " << temp << endl; 
 			
 		}
 
@@ -403,7 +451,7 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 			perror("Error with execvp in executeIO");
 			exit(1);
 		}
-		errno = 0;
+		//errno = 0;
 		exit(0);	
 	}
 	// if pid is not zero then we are in the parent process!	
@@ -411,9 +459,10 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 		if (wait(0) == -1){
 			perror("Error waiting for child process!");
 			exit(1);
-		}
-		if (remove( "data.txt" ) != 0 ){
-			perror( "Error deleting file" );
+		}if(TrippleIn){
+			if (remove( "data.txt" ) != 0 ){
+				perror( "Error deleting file" );
+			}
 		}
 		//if (TrippleIn){cout << endl;}
 	}	
@@ -426,6 +475,9 @@ bool containsOtherLogic(vector<char*>&v){
 		if (strcmp(v.at(i), ">>") == 0){return true;}
 		if (strcmp(v.at(i),"<<<") == 0){return true;}
 		if (strcmp(v.at(i), "|") == 0){return true;}
+		if (v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
+			if (v.at(i)[1] == '>'){return true;}
+		}
 	}return false;
 }
 
@@ -433,24 +485,64 @@ bool gonnaPipe(vector<char*>&v){
 	for(unsigned i = 0; i < v.size(); i++){if(strcmp(v.at(i),"|") == 0){return true;}}
 	return false;
 }
+
+/*
+char *** reWorkCommands(vector<char*>&v){
+	int numOfPipes = 0;
+	for(unsigned i = 0; i < v.size(); i++){
+		if(strcmp(v.at(i),"|") == 0){numOfPipes++;}
+	}
+	vector<char*[]> PipedReworked;
+	string temp = "";
+	for(unsigned i = 0; i <v.size(); i++){
+		if (strcmp(v.at(i),"|") != 0){
+			temp += v.at(i); temp+= " ";
+		}
+		if (strcmp(v.at(i),"|") == 0){
+			char * currentCommand[temp.size()+1] = temp;
+			temp = "";
+			PipedReworked.push_back(currentCommand);
+		}
+	}
+
+}
+*/
 void piping(vector<char*>v){
 
-		
 
 
-		
+	
+
+			
 }
 
-bool isntString(vector<char*> & v){
-	if(v.size() != 3){cout << "Not enough arguments!" << endl; return false;}
-	if((v.at(2)[0]) == '\"'){
-		cout << "first is quotes!" << endl;
-		int index = 0;
-		while(v.at(2)[index] != '\0'){index++;}
-		if(v.at(2)[index] != '\"'){cout << "last is not quotes!" << endl;return false;}
-		else{return true;}
-	}return false;
+int getFD(vector<char*> & v){
+	for(unsigned i = 0; i < v.size(); i++){
+		if(v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
+			if (v.at(i)[1] == '>'){
+				if (v.at(i)[2] == '>'){return 0;}
+				else {
+					return v.at(i)[0] - 48;
+				}
+			}
+		}
+	}
+	return 0;
 }
+	
+int getFDA(vector<char*> & v){
+	for(unsigned i = 0; i < v.size(); i++){
+		if(v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
+			if (v.at(i)[1] == '>'){
+				if (v.at(i)[2] == '>'){
+					return v.at(i)[0] - 48;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
 bool tokenizeInput(std::string commands){
 
 	std::vector<char *> v;
@@ -487,6 +579,8 @@ bool tokenizeInput(std::string commands){
 	else if (containsOtherLogic(v)){
 		
 		if (gonnaPipe(v)){
+			
+			
 			cout<< "WE GONNA PIPE BETCH!" << endl;
 			piping(v);
 			return false;
@@ -495,25 +589,40 @@ bool tokenizeInput(std::string commands){
 		// cout << "WE ARE IN NICCA!" << endl;	
 		// if piping then go to piping function
 
+		
 		bool inRedir  = containsInRedir(v);
 		bool outRedir = containsOutRedir(v);
 		bool outRedirAppend = containsOutRedirAppend(v); 
-		bool comeInside3 = containsTrippleIn(v);
+		bool comeInside3 = containsTrippleIn(v);	
+		bool numOut = containsOutFile(v);
+		bool numOutA = containsOutFileAppend(v);
 
-		vector<char*> infiles;
-		vector<char*> outfiles;
-		vector<char*> outfilesAppend;
-		vector<char*> trippleIn;
-		vector<char*> newCommands;
-	
-		processOutInAppend(v,infiles,outfiles,outfilesAppend, trippleIn, newCommands);
-		
-		//cout << "New commands are: " << endl;
+		vector<char*> infiles; 		// vector of all input files
+		vector<char*> outfiles;		// vector of all output files
+		vector<char*> outfilesAppend;	// vector of all output files that append
+		vector<char*> trippleIn;	// vector that contains the input string if <<<
+		vector<char*> newCommands;	// vector of new commands
+		vector<char*> NumOutFiles;	// vector of fd out files to whatever #> is detected
+		vector<char*> NumOutFilesApp;	// vector of fd out files that append to whatever #>> is detected		
+		int FDout = getFD(v);
+		int FDoutApp = getFDA(v);
+
+		// this processes all the information into its respective data containers
+		processOutInAppend(v,infiles,outfiles,outfilesAppend, trippleIn,NumOutFiles, NumOutFilesApp, newCommands);	
+		// this is the command array. It only supports up to a 99 char command(s)
 		char * ar[100] = {0};
+
+		// cout << "The New commands are: " << endl;
+		// printVec(newCommands);
+		// cout << "The NumOut Files are: " << endl;
+		// printVec(NumOutFiles);
+		// cout << "The NumOutAppend Files are: " << endl;
+		// printVec(NumOutFilesApp);
+
+		// this puts all the new commands into the array
 		for(unsigned i = 0; i < newCommands.size(); i++){ar[i] = newCommands.at(i); /*cout << newCommands.at(i) << " ";*/}
-		// cout << endl << endl;
-		
-		executeIO(ar,inRedir, outRedir,outRedirAppend,comeInside3 ,infiles,outfiles, outfilesAppend, trippleIn);
+		// this executes all the commands and does all the input/output redirection
+		executeIO(ar,inRedir, outRedir,outRedirAppend,comeInside3, numOut, numOutA,infiles,outfiles, outfilesAppend, trippleIn, NumOutFiles, NumOutFilesApp, FDout, FDoutApp);
 		return false;
 	}
 	else {
