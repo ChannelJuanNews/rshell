@@ -25,7 +25,7 @@ int main(int argc, char * argv[] ) {
 	unsigned loopCounter = 0;
 	
 	while(true){
-		
+	
 		DisplayUserHost(loopCounter);
 		getline(std::cin, commands);
 		if (commands ==  "exit"){exit(0);}
