@@ -23,12 +23,12 @@
 using namespace std;
 
 void DisplayUserHost(unsigned loopCounter){
-
+	
 	char * username = getlogin();
 	std::cout << username;
 	char hostname[100];
 	int result;
-
+	
 	result = gethostname(hostname, 100);
 	
 	if (result == -1 && loopCounter < 1) {
@@ -43,21 +43,18 @@ void DisplayUserHost(unsigned loopCounter){
 	}
 	std::cout << "$ ";
 }
-
 void printArgv(std::vector<char*> & v){
-
+	
 	for (unsigned i = 0; i < v.size(); i++){
 		std::cout << v.at(i) << " ";
 	}
 	std::cout << std::endl;
 }
-
 void clearScreen() {
 
 	#define del() printf("\033[H\033[J");
 	del();
 }
-
 void rshellMessage() {
 	
 	std::cout << "              ==================================================               " << std::endl;
@@ -83,7 +80,6 @@ void rshellMessage() {
 	std::cout << "|                   Type the command 'exit' to exit rshell                    |" << std::endl;
 	std::cout << "===============================================================================" << std::endl;
 }
-
 // returns -1 if failed. otherwise returns 1
 int executeCommands(std::vector<char*> & vec){
 	
@@ -131,20 +127,19 @@ int executeCommands(std::vector<char*> & vec){
 	}
 	return 1;
 }
-
 void printVec(std::vector<char*> & v){
-
+	
 	for (unsigned i = 0; i < v.size(); i++){ std::cout << v.at(i) << " ";}
 	std::cout << std::endl << std::endl;
 }
 std::string commentChecker(std::string commands){
-
+	
 	for (unsigned i = 0; i < commands.size(); i++){
 		if (commands.at(i) == '#'){ commands.erase (commands.begin()+i, commands.end());}
 	} return commands;
 }
 std::string connectorChecker(std::string commands){
-
+	
 	std::string AND = "&& ";
 	for (unsigned i = 0; i < commands.size(); i++){
 		if (commands.at(i) == ';' && i == commands.size() -1){ commands.at(i) = ' ';}
@@ -153,13 +148,18 @@ std::string connectorChecker(std::string commands){
 	//std::cout << "FINISHED STRING IS: " << commands << std::endl;
 	return commands;
 }
-
 std::vector<char*> pop_front(std::vector<char *> v){
+
 	std::vector<char *> vec(0);
-	if (v.size() > 1){ for (unsigned i = 1; i < v.size(); i++){ vec.push_back(v.at(i));}}
+	if (v.size() > 1){
+		for (unsigned i = 1; i < v.size(); i++){	
+			vec.push_back(v.at(i));
+		}
+	}
+	cout << "COMMANDS AFTER ONE POP_BACK: " << endl;
+	printVec(vec);
 	return vec;
 }
-
 void divideExecute(std::vector<char *> v){
 	
 	if (v.size() == 0){return;}
@@ -175,15 +175,16 @@ void divideExecute(std::vector<char *> v){
 		
 		std::vector<char *> * CurrentCommand = new std::vector<char*>;
 		unsigned i = 0;
-		while(strcmp(v.at(i),"&&") != 0 && strcmp(v.at(i),"||") != 0  /*strcmp(v.at(i),"|") != 0*/ && i < v.size()){
+		while(strcmp(v.at(i),"&&") != 0 && strcmp(v.at(i),"||") != 0  && i < v.size()){
 			CurrentCommand->push_back(v.at(i));
 			i++;
 		}
+		cout << "POP_BACK GONNA BE CALLED " << i << "times" << endl;
 		for (unsigned k = 0; k < i; k++){
 			v = pop_front(v);
 		}
-		//std::cout << "VECTOR AFTER POPPING OFF COMMANDS: ";
-		//printVec(v);	
+		std::cout << "VECTOR AFTER POPPING OFF COMMANDS: ";
+		printVec(v);
 		if (v.size() == 0){
 			executeCommands(*CurrentCommand);
 			divideExecute(v);
@@ -197,7 +198,9 @@ void divideExecute(std::vector<char *> v){
 			
 			if(strcmp(v.at(0),"&&") == 0){
 				v = pop_front(v);
-				executeCommands(*CurrentCommand);
+				if (executeCommands(*CurrentCommand) == -1){
+					cout << "FAILED!" << endl;
+				}
 				divideExecute(v);
 				return;
 			}
@@ -214,12 +217,15 @@ void divideExecute(std::vector<char *> v){
 				}
 			
 			}
+			else{
+				executeCommands(*CurrentCommand);
+				return;
+			}
 		}
 	
 	}	
 	return;	
 }
-
 bool containsLogic(std::vector<char*> &v){
 	for (unsigned i = 0; i < v.size(); i++){
 		//std::cout << v.at(i) << " ";
@@ -229,7 +235,6 @@ bool containsLogic(std::vector<char*> &v){
 		}
 	}return false;
 }
-
 void processOutInAppend(vector<char*>v, vector<char*>&inf, vector<char*>&outf, vector<char*>&outAppen,vector<char*>&trippleIn, vector<char*> & NumOut, vector<char*>& NumOutAppend, vector<char*>&newCommands){
 
 	for(unsigned i = 0; i < v.size(); i++){
@@ -290,13 +295,11 @@ void processOutInAppend(vector<char*>v, vector<char*>&inf, vector<char*>&outf, v
 		newCommands.push_back(v.at(i));
 	}	
 }
-
 bool containsInRedir(const vector<char*>&v){
 	for (unsigned i = 0; i < v.size(); i++){
 		if(strcmp(v.at(i), "<") == 0){return true;}
 	}/*cout << "Does not contain <: \n";*/ return false;
 }
-
 bool containsOutRedir(const vector<char*>&v){
 	for (unsigned i = 0; i < v.size(); i++){
 		if (strcmp(v.at(i),">") == 0){return true;}
@@ -335,10 +338,7 @@ bool containsOutFileAppend(const vector<char*> &v){
 		}
 	}return false;
 }
-
-
 void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend, bool TrippleIn, bool NumOUT, bool NumOUTA, vector<char*>&infiles, vector<char*>&outfiles, vector<char*>&outfilesAppend, vector<char*>&TRin, vector<char*> NUMoutfiles, vector<char*> NUMoutfilesA, int FileD, int FileDApp){
-	
 	
 	//ofstream outputFile;//("data.txt");
 	int pid = fork();
@@ -346,7 +346,6 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 		perror("Error with forking stuffs in I/O redir");
 		exit(1);
 	}
-
 	else if (pid == 0){
 		if (outRedirAppend){
 			if (close(1) == -1){
@@ -360,7 +359,6 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 				}
 			}
 		}
-
 		if (outRedir){
 			//cout << "We in nicca!" << endl;
 			if (close(1) == -1){
@@ -467,7 +465,6 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 		//if (TrippleIn){cout << endl;}
 	}	
 }
-
 bool containsOtherLogic(vector<char*>&v){
 	for (unsigned i = 0; i < v.size(); i++){
 		if (strcmp(v.at(i), "<") == 0){return true;} 
@@ -480,42 +477,51 @@ bool containsOtherLogic(vector<char*>&v){
 		}
 	}return false;
 }
-
 bool gonnaPipe(vector<char*>&v){
 	for(unsigned i = 0; i < v.size(); i++){if(strcmp(v.at(i),"|") == 0){return true;}}
 	return false;
 }
+void piping(vector<vector<char*> >&v, int amtOfPipes){
 
-/*
-char *** reWorkCommands(vector<char*>&v){
-	int numOfPipes = 0;
-	for(unsigned i = 0; i < v.size(); i++){
-		if(strcmp(v.at(i),"|") == 0){numOfPipes++;}
-	}
-	vector<char*[]> PipedReworked;
-	string temp = "";
-	for(unsigned i = 0; i <v.size(); i++){
-		if (strcmp(v.at(i),"|") != 0){
-			temp += v.at(i); temp+= " ";
+
+	int fdid[2];
+	pid_t fid;
+	int fd_input = 0;
+	char * argv[100] = {0};
+
+	for (int i = 0; i < amtOfPipes+1; i++){
+		// resets argv to null pointers
+		for(unsigned ind = 0; ind < 100; ind++){argv[ind] = '\0';}
+		// fills argv with the .at(i) arguments
+		for(unsigned k = 0; k < v.at(i).size(); k++){
+			argv[k]  = v.at(i).at(k);
 		}
-		if (strcmp(v.at(i),"|") == 0){
-			char * currentCommand[temp.size()+1] = temp;
-			temp = "";
-			PipedReworked.push_back(currentCommand);
+		
+		pipe(fdid);
+		if ((fid = fork()) == -1){
+			perror("Fork failed in piping!");
+			exit(1);
+		}
+		else if (fid == 0){
+			dup2(fd_input,0);
+			if (i < amtOfPipes){
+				dup2(fdid[1], 1);
+			}
+			close(fdid[0]);
+			if (execvp(argv[0], argv) == -1){
+				perror("Failure in execvp in piping!");
+				exit(1);
+			}
+			exit(1);
+		}
+		else {
+			wait(NULL);
+			close(fdid[1]);
+			fd_input = fdid[0];
 		}
 	}
-
 }
-*/
-void piping(vector<char*>v){
-
-
-
-	
-
-			
-}
-
+// this function gets the file descriptor when user inputs #> (i.e. does NOT append to output)
 int getFD(vector<char*> & v){
 	for(unsigned i = 0; i < v.size(); i++){
 		if(v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
@@ -529,7 +535,7 @@ int getFD(vector<char*> & v){
 	}
 	return 0;
 }
-	
+// this functions gets the file descriptor when user inputs #>> (i.e. APPENDS to output)
 int getFDA(vector<char*> & v){
 	for(unsigned i = 0; i < v.size(); i++){
 		if(v.at(i)[0] >= '0' && v.at(i)[0] <= '9'){
@@ -542,7 +548,6 @@ int getFDA(vector<char*> & v){
 	}
 	return 0;
 }
-
 bool tokenizeInput(std::string commands){
 
 	std::vector<char *> v;
@@ -573,6 +578,8 @@ bool tokenizeInput(std::string commands){
 	// if exit then exit
 	if (strcmp(v.at(0), "exit") == 0){return true;}
 	if (containsLogic(v)){
+		cout << "THE COMMANDS AREW: " << endl;
+		printVec(v);
 		divideExecute(v);
 		return false;
 	}
@@ -580,23 +587,37 @@ bool tokenizeInput(std::string commands){
 		
 		if (gonnaPipe(v)){
 			
+			int amtOfPipes = 0;
+			for(unsigned i = 0; i < v.size(); i++){
+				if (strcmp(v.at(i),"|") == 0){amtOfPipes++;}
+			}
 			
-			cout<< "WE GONNA PIPE BETCH!" << endl;
-			piping(v);
+			vector<vector<char*> > Commands;
+			vector<char*> temp;
+		
+			for (unsigned index = 0; index < v.size(); index++){
+				
+				if (strcmp(v.at(index),"|") != 0){
+					temp.push_back(v.at(index));
+				}
+				if (strcmp(v.at(index),"|") == 0 || index == v.size() - 1){
+					Commands.push_back(temp);
+					temp.clear();
+				}
+			}
+			piping(Commands, amtOfPipes);
 			return false;
 		}	
 		
 		// cout << "WE ARE IN NICCA!" << endl;	
 		// if piping then go to piping function
-
-		
 		bool inRedir  = containsInRedir(v);
 		bool outRedir = containsOutRedir(v);
 		bool outRedirAppend = containsOutRedirAppend(v); 
 		bool comeInside3 = containsTrippleIn(v);	
 		bool numOut = containsOutFile(v);
 		bool numOutA = containsOutFileAppend(v);
-
+		
 		vector<char*> infiles; 		// vector of all input files
 		vector<char*> outfiles;		// vector of all output files
 		vector<char*> outfilesAppend;	// vector of all output files that append
@@ -606,19 +627,12 @@ bool tokenizeInput(std::string commands){
 		vector<char*> NumOutFilesApp;	// vector of fd out files that append to whatever #>> is detected		
 		int FDout = getFD(v);
 		int FDoutApp = getFDA(v);
-
+		
 		// this processes all the information into its respective data containers
 		processOutInAppend(v,infiles,outfiles,outfilesAppend, trippleIn,NumOutFiles, NumOutFilesApp, newCommands);	
 		// this is the command array. It only supports up to a 99 char command(s)
 		char * ar[100] = {0};
-
-		// cout << "The New commands are: " << endl;
-		// printVec(newCommands);
-		// cout << "The NumOut Files are: " << endl;
-		// printVec(NumOutFiles);
-		// cout << "The NumOutAppend Files are: " << endl;
-		// printVec(NumOutFilesApp);
-
+		
 		// this puts all the new commands into the array
 		for(unsigned i = 0; i < newCommands.size(); i++){ar[i] = newCommands.at(i); /*cout << newCommands.at(i) << " ";*/}
 		// this executes all the commands and does all the input/output redirection
