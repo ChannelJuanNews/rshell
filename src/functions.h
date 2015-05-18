@@ -266,7 +266,7 @@ void processOutInAppend(vector<char*>v, vector<char*>&inf, vector<char*>&outf, v
 			if (strcmp(v.at(i+1), "<") == 0){/*cout << "we have other input and stuff" << endl;*/ continue;}
 			if (strcmp(v.at(i+1), ">") == 0){/*cout << "we have other input and stuff" << endl;*/ continue;}
 			if (strcmp(v.at(i+1), ">>") == 0){/*cout << "we have other input and stuff" << endl;*/ continue;}	
-		
+			if (v.at(i+1)[0] >= '0' && v.at(i+1)[0] <= '9'){continue;}
 			trippleIn.push_back(v.at(i+1));
 			v.erase(v.begin() + i + 1);
 			i--;
@@ -298,6 +298,9 @@ void processOutInAppend(vector<char*>v, vector<char*>&inf, vector<char*>&outf, v
 		newCommands.push_back(v.at(i));
 	}	
 }
+
+
+
 bool containsInRedir(const vector<char*>&v){
 	for (unsigned i = 0; i < v.size(); i++){
 		if(strcmp(v.at(i), "<") == 0){return true;}
@@ -341,7 +344,7 @@ bool containsOutFileAppend(const vector<char*> &v){
 		}
 	}return false;
 }
-void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend, bool TrippleIn, bool NumOUT, bool NumOUTA, vector<char*>&infiles, vector<char*>&outfiles, vector<char*>&outfilesAppend, vector<char*>&TRin, vector<char*> NUMoutfiles, vector<char*> NUMoutfilesA, int FileD, int FileDApp){
+void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend, bool TrippleIn, bool NumOUT, bool NumOUTA, vector<char*>&infiles, vector<char*>&outfiles, vector<char*>&outfilesAppend, vector<char*>&TRin, vector<char*> NUMoutfiles, vector<char*> NUMoutfilesA, int FileD, int FileDApp, bool pipingAfter){
 	
 	//ofstream outputFile;//("data.txt");
 	int pid = fork();
@@ -350,6 +353,7 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 		exit(1);
 	}
 	else if (pid == 0){
+	
 		if (outRedirAppend){
 			if (close(1) == -1){
 				perror("Error closing in executeIO: outRedirAppend");
@@ -377,11 +381,25 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 			}
 			//cout << endl;
 		}
+
+		if (inRedir){
+
+			if (close(0) == -1){
+				perror("Error closing in executeIO: inRedir");
+				exit(1);
+			}
+			for (unsigned i = 0; i < infiles.size(); i++){
+				if(open(infiles.at(i), O_RDONLY) == -1){
+					perror("Error opening in executeIO: inRedir");
+					exit(1);
+				}
+			}
+		}
+	
+
 		if(NumOUT){
-			// cout << "WE ARE THIS FAR!" << endl;
-			// cout << "The inputted file descrittor is!: " << FileD << endl;
 			if (close(FileD) == -1){
-				perror("Error closing in executeIO: outRedir");
+				perror("error closing fileD");
 				exit(1);
 			}
 			for (unsigned i = 0; i < NUMoutfiles.size(); i++){
@@ -391,10 +409,10 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 					exit(1);
 				}
 			}
-			//cout << endl;
+				//cout << endl;
 		}
 		if(NumOUTA){
-				
+			cout << "WE IN?" << endl;	
 			if (close(FileDApp) == -1){
 				perror("Error closing in executeIO: outRedirAppend");
 				exit(1);
@@ -407,19 +425,7 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 			}
 		}
 
-		if (inRedir){
 
-			if (close(0) == -1){
-				perror("Error closing in executeIO: inRedir");
-				exit(1);
-			}
-			for (unsigned i = 0; i < infiles.size(); i++){
-				if(open(infiles.at(i), O_RDONLY | O_CREAT) == -1){
-					perror("Error opening in executeIO: inRedir");
-					exit(1);
-				}
-			}
-		}
 		if (TrippleIn){
 
 			//****** THIS OPENS THE CREATED data.txt FILE AND OUTPUTS THE INPUTTED STRING INTO IT ******
@@ -438,7 +444,7 @@ void executeIO( char * argv[], bool inRedir, bool outRedir, bool outRedirAppend,
 				exit(1);
 			}	
 			string data = "data.txt";		
-			if (open(data.c_str(), O_RDWR | O_CREAT, 0644 ) == -1){
+			if (open(data.c_str(), O_RDWR | 0644 ) == -1){
 				perror("Error opening in executableIO: trippleIn");
 				exit(1);
 			}
@@ -480,12 +486,36 @@ bool containsOtherLogic(vector<char*>&v){
 		}
 	}return false;
 }
-bool gonnaPipe(vector<char*>&v){
+bool gonnaPipeOnly(vector<char*>&v){
+	
+	if(containsInRedir(v)){return false;}
+	if(containsOutRedir(v)){return false;}
+	if(containsOutRedirAppend(v)){return false;}
+	if(containsTrippleIn(v)){return false;}
+	if(containsOutFile(v)){return false;}
+	if(containsOutFileAppend(v)){return false;}
 	for(unsigned i = 0; i < v.size(); i++){if(strcmp(v.at(i),"|") == 0){return true;}}
 	return false;
 }
+bool IOandPiping(vector<char*>&v){
+	bool IO = false;
+	bool piping = false;
+	for(unsigned i = 0; i < v.size(); i++){
+		if(strcmp(v.at(i),"|") == 0){piping = true;} 	// piping
+		if(v.at(i)[0] >= '0' && v.at(i)[0] <='9'){ 	// fd IO
+			if (v.at(i)[1] == '>'){
+				IO = true;
+			}
+		}
+		if(strcmp(v.at(i),"<") == 0){IO = true;} 	// inRedir
+		if(strcmp(v.at(i),">") == 0){IO = true;} 	// outRedir	
+		if(strcmp(v.at(i),">>") == 0){IO = true;} 	// outA Redir
+		if (strcmp(v.at(i),"<<<") == 0){IO = true;} 	// string in
+	}
+	if (IO && piping){return true;}
+	return false;
+}
 void piping(vector<vector<char*> >&v, int amtOfPipes){
-
 
 	int fdid[2];
 	pid_t fid;
@@ -566,6 +596,73 @@ int getFDA(vector<char*> & v){
 	}
 	return 0;
 }
+bool isNum (char data){
+	if (data >= '0' && data <= '9'){return true;} return false;
+}
+string spaceCheck(string commands){
+	
+	string newCommands = "";
+	for(unsigned i = 0; i < commands.size(); i++){
+		if(commands.at(i) == '<' && i+1 < commands.size() && commands.at(i+1) != '<' && i+1+1 < commands.size() && commands.at(i+1+1) != '<'){
+			if (i+1 < commands.size() && commands.at(1+i) != '<' && commands.at(i-1) != '<'){
+				newCommands+= ' '; // input redir
+				newCommands+= '<';
+				newCommands+= ' ';
+			}
+		}
+		else if (commands.at(i) == '>' && i+i < commands.size() && commands.at(i+1) != '>' && commands.at(i-1) != '>'){
+			if (i-1 > 0 && isNum(commands.at(i-1)) == false) {
+				newCommands+= ' '; // output redir
+				newCommands+= '>';
+				newCommands+= ' ';
+				cout << "Added one output carrot" << endl;
+			}
+		}
+		else if (commands.at(i) == '>' && i-1> 0 && !(commands.at(i-1) >= '0') && !(commands.at(i-1) <= '9')){
+			if(i+1 < commands.size() && commands.at(i+1) == '>'){ 
+				newCommands+= ' '; // output redir append
+				newCommands+=">>";
+				newCommands+= ' ';
+			}
+		}
+		else if (commands.at(i) == '<' && i+i < commands.size()){
+				if(commands.at(i+1) == '<' && i+1+1 < commands.size()){
+					if (commands.at(i+1+1) == '<'){ // string input
+						newCommands+= ' ';
+						newCommands+= "<<<";
+						newCommands+= ' ';
+					}
+				}
+		}
+		else if (commands.at(i) == '|' && i+1 < commands.size() && commands.at(i+1) != '|'){
+			newCommands+= ' ';	// piping
+			newCommands+= '|';
+			newCommands+= ' ';
+		}
+		else if(commands.at(i) >= '0' && commands.at(i) <= '9'){
+			if (i+1 < commands.size() && commands.at(i+1) == '>' && i+1+1< commands.size() && commands.at(i+1+1) != '>'){
+				cout << "WE IN" << endl; // fd out
+				newCommands+= ' ';
+				newCommands+= commands.at(i);
+				newCommands+= '>';
+				newCommands+= ' ';
+			}
+		}
+		else if (commands.at(i) >= '0' && commands.at(i) <= '9'){
+			if(i+1 < commands.size() && commands.at(i+1) == '>' && i+1+1 < commands.size() && commands.at(i+1+1) == '>'){
+				newCommands+= ' ';
+				cout << "NUM IS: " << commands.at(i) << endl;
+				newCommands+= commands.at(i); // fd out append
+				newCommands+= ">>";
+				newCommands+= ' ';
+			}
+		}
+		else {
+			newCommands+=commands.at(i);
+		}
+	}
+	return newCommands;
+}
 bool tokenizeInput(std::string commands){
 
 	std::vector<char *> v;
@@ -574,15 +671,18 @@ bool tokenizeInput(std::string commands){
 		
 	// supports up to a 99,999 character command input
 	char tokenArray[10000] = {'\0'};
-	const char deliminator[2] = {' '};
+	const char deliminator[2] = {' ', '	'};
 	char * token;
 	std::string modifiedCommands;
 
 	modifiedCommands = commentChecker(commands);
 	modifiedCommands = connectorChecker(modifiedCommands);
-		
+	//modifiedCommands = spaceCheck(modifiedCommands);
 
+	//cout << "new commands are: " << modifiedCommands << endl;
+		
 	for (unsigned i = 0; i < modifiedCommands.size(); i++){
+		//cout << modifiedCommands.at(i) << endl;
 		tokenArray[i] = modifiedCommands.at(i);
 	}
 
@@ -591,20 +691,25 @@ bool tokenizeInput(std::string commands){
 		v.push_back(token);
 		token = strtok(NULL, deliminator);
 	}
+	
 	// if only comments then no need to execute any commands, return
 	if (v.size() == 0){return false;}
 	// if exit then exit
 	if (strcmp(v.at(0), "exit") == 0){return true;}
 	if (containsLogic(v)){
-		cout << "THE COMMANDS AREW: " << endl;
-		printVec(v);
+		//cout << "THE COMMANDS AREW: " << endl;
+		//printVec(v);
 		divideExecute(v);
 		return false;
 	}
 	else if (containsOtherLogic(v)){
 		
-		if (gonnaPipe(v)){
-			
+		if (IOandPiping(v)){
+			cout << "ERROR: rshell cannot yet support piping and I/O redirection together!" << endl;
+			return false;	
+		}
+		if (gonnaPipeOnly(v)){
+			//cout << "WE here!!!!!" << endl;
 			int amtOfPipes = 0;
 			for(unsigned i = 0; i < v.size(); i++){
 				if (strcmp(v.at(i),"|") == 0){amtOfPipes++;}
@@ -635,7 +740,8 @@ bool tokenizeInput(std::string commands){
 		bool comeInside3 = containsTrippleIn(v);	
 		bool numOut = containsOutFile(v);
 		bool numOutA = containsOutFileAppend(v);
-		
+		bool pipingAfter = IOandPiping(v);		
+
 		vector<char*> infiles; 		// vector of all input files
 		vector<char*> outfiles;		// vector of all output files
 		vector<char*> outfilesAppend;	// vector of all output files that append
@@ -650,11 +756,15 @@ bool tokenizeInput(std::string commands){
 		processOutInAppend(v,infiles,outfiles,outfilesAppend, trippleIn,NumOutFiles, NumOutFilesApp, newCommands);	
 		// this is the command array. It only supports up to a 99 char command(s)
 		char * ar[100] = {0};
-		
+
 		// this puts all the new commands into the array
 		for(unsigned i = 0; i < newCommands.size(); i++){ar[i] = newCommands.at(i); /*cout << newCommands.at(i) << " ";*/}
 		// this executes all the commands and does all the input/output redirection
-		executeIO(ar,inRedir, outRedir,outRedirAppend,comeInside3, numOut, numOutA,infiles,outfiles, outfilesAppend, trippleIn, NumOutFiles, NumOutFilesApp, FDout, FDoutApp);
+		executeIO(ar,inRedir, outRedir,outRedirAppend,comeInside3, numOut, numOutA,infiles,outfiles, outfilesAppend, trippleIn, NumOutFiles, NumOutFilesApp, FDout, FDoutApp, pipingAfter);
+
+		// do piping after shiz
+		
+
 		return false;
 	}
 	else {
