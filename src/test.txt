@@ -1,4 +1,0 @@
-test.cpp: In function ‘int main()’:
-test.cpp:4:10: error: ‘asdf’ was not declared in this scope
-  cout << asdf;
-          ^

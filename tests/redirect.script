@@ -1,0 +1,242 @@
+Script started on Sun 17 May 2015 09:52:27 PM PDT
+~
+jruel006@hammer $ cd Desl[Kktop;/[K[K/rshell
+~/Desktop/rshell
+jruel006@hammer $ rm -rf bin
+~/Desktop/rshell
+jruel006@hammer $ make
+#echo "CREATED BIN DIRECTORY IN ROOT DIRECTORY"
+mkdir bin
+# goes to source folder where main.cpp is and compiles to executable named rshell
+cd src && g++ -Wall -Werror -ansi -pedantic -o rshell main.cpp
+# moves into src directory and moves rshell.out (executable) into bin directory 
+cd src && mv rshell ../bin		
+#echo "LAUNCHING NEW RSHELL SESSION"
+#cd bin && rshell
+#DELETES THE BIN DIRECTORY UPON EXITING OF rshell 
+#make clean
+make ls
+make[1]: Entering directory `/home/csmajs/jruel006/Desktop/rshell'
+cd src && g++ -Wall -Werror -ansi -pedantic -o ls ls.cpp
+cd src && mv ls ../bin
+cd bin && ./ls
+
+[1;32mls      [0m [1;32mrshell  [0m 
+#make cp
+make[1]: Leaving directory `/home/csmajs/jruel006/Desktop/rshell'
+cd src && g++ -Wall -Werror -ansi -pedantic -o ls ls.cpp
+cd src && mv ls ../bin
+cd bin && ./ls
+
+[1;32mls      [0m [1;32mrshell  [0m 
+#make cp
+cd src && g++ -Wall -Werror -ansi -pedantic -o cp cp.cpp
+cd src && mv cp ../bin
+cd src && g++ -Wall -Werror -ansi -pedantic -o mv mv.cpp
+cd src && mv mv ../bin
+cd src && g++ -Wall -Werror -ansi -pedantic -o rm  rm.cpp
+cd src && mv rm  ../bin
+~/Desktop/rshell
+jruel006@hammer $ bin/rshell
+[H[J              ==================================================               
+                              Welcome to rshell! :)                            
+              ==================================================               
+                                                                               
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for my cs100 hw0 w/ Mike Izbicki         |
+| I will not be recording anything because I don't know how to.               |
+|                                                                             |
+| Important commands for this bash emulator                                   |
+|   * gradeWishlist       displays the grade I want in your class             |
+|   * typeSlow            practice typing as slow as possbile                 |
+|                                                                             |
+| Important commands for general A+- programming:                             |
+|   * cake                  displays a picture of a char cake                 |
+|   * std                   don't catch one of those                          |
+|   * onTheGrind            that's what i've been doing all week              |
+|   * pcpset                i've been halucinating about finishing this       |
+|   * woman                 don't find out about commands. She wont tell you  |
+|                                                                             |
+|                   Type the command 'exit' to exit rshell                    |
+===============================================================================
+jruel006@hammer.cs.ucr.edu$ ls -a > list.txt
+jruel006@hammer.cs.ucr.edu$ cat list.txt
+.
+..
+\
+bin
+.git
+LICENSE
+list.txt
+Makefile
+README.md
+src
+test.cpp
+tests
+jruel006@hammer.cs.ucr.edu$ gre   mw < list.txt
+Error with execvp in executeIO: No such file or directory
+jruel006@hammer.cs.ucr.edu$ # LOL wrong command
+jruel006@hammer.cs.ucr.edu$ wc < list.txt
+12 12 71
+jruel006@hammer.cs.ucr.edu$ wc ><  < list.txx t > wordcount. .txt
+jruel006@hammer.cs.ucr.edu$ cat word      t < wordcoutm  nt.txt
+12 12 71
+jruel006@hammer.cs.ucr.edu$ cat t     # extra d creit  dit stuffs
+jruel006@hammer.cs.ucr.edu$ cat << "This is a             < "this is a test"
+this is a test
+jruel006@hammer.cs.ucr.edu$ cat <<<<  ":Th   this is a test string" > cat.xt  txt
+jruel006@hammer.cs.ucr.edu$ cat t cat.txt
+this is a test string
+jruel006@hammer.cs.ucr.edu$ cat  c  cat.txt | grep test
+this is a test string
+jruel006@hammer.cs.ucr.edu$ cat cat .  .txt | grep test | grep te | grep t
+this is a test string
+jruel006@hammer.cs.ucr.edu$ # second extra credit
+jruel006@hammer.cs.ucr.edu$ g++   cat c test.cpp
+#include <iostream>
+using namespace std;
+int main(){cout << asdf; return 0;}
+jruel006@hammer.cs.ucr.edu$ # contains errors
+jruel006@hammer.cs.ucr.edu$ ca  g++ test.cpp 2> error.txt
+jruel006@hammer.cs.ucr.edu$ cat < error.txt
+test.cpp: In function ‘int main()’:
+test.cpp:3: error: ‘asdf’ was not declared in this scope
+jruel006@hammer.cs.ucr.edu$ #piping and I/O do NOT work together :( 
+jruel006@hammer.cs.ucr.edu$ ls -a | grep bin > test.txt        outfile.txt
+ERROR: rshell cannot yet support piping and I/O redirection together!
+jruel006@hammer.cs.ucr.edu$ wx c < filed Does  Note Exist.txt
+Error opening in executeIO: inRedir: No such file or directory
+jruel006@hammer.cs.ucr.edu$ ls -a > append.txt
+jruel006@hammer.cs.ucr.edu$ l s-a     cat append.txt
+.
+..
+\
+append.txt
+bin
+cat.txt
+error.txt
+.git
+LICENSE
+list.txt
+Makefile
+README.md
+src
+test.cpp
+tests
+wordcount.txt
+jruel006@hammer.cs.ucr.edu$ ls -a >> append.txt
+jruel006@hammer.cs.ucr.edu$ a cat apped.   end.txt
+.
+..
+\
+append.txt
+bin
+cat.txt
+error.txt
+.git
+LICENSE
+list.txt
+Makefile
+README.md
+src
+test.cpp
+tests
+wordcount.txt
+.
+..
+\
+append.txt
+bin
+cat.txt
+error.txt
+.git
+LICENSE
+list.txt
+Makefile
+README.md
+src
+test.cpp
+tests
+wordcount.txt
+jruel006@hammer.cs.ucr.edu$ # truncate append
+jruel006@hammer.cs.ucr.edu$ ls 0a  -a > append.txt
+jruel006@hammer.cs.ucr.edu$ cat append.txt
+.
+..
+\
+append.txt
+bin
+cat.txt
+error.txt
+.git
+LICENSE
+list.txt
+Makefile
+README.md
+src
+test.cpp
+tests
+wordcount.txt
+jruel006@hammer.cs.ucr.edu$ grep bin < "THis       <<< "This is a test string"  that contains bin"
+This is a test string that contains bin
+jruel006@hammer.cs.ucr.edu$ echo    vim hellowo  WOrld    orle.  d.cpp
+7[?47h[?1h=[1;70r[m[H[2J[70;1H"helloWorld.cpp" [New File][>c[1;1H[33m  1 [m
+[1m[94m~                                                                                                                                                                             [3;1H~                                                                                                                                                                             [4;1H~                                                                                                                                                                             [5;1H~                                                                                                                                                                             [6;1H~                                                                                                                                                                             [7;1H~                                                                                                                                                                             [8;1H~                                                                                                                                                                             [9;1H~                                                                                                                                                                             [10;1H~                                                                                                                                                                             [11;1H~                                                                                                                                                                             [12;1H~                                                                                                                                                                             [13;1H~                                                                                                                                                                             [14;1H~                                                                                                                                                                             [15;1H~                                                                                                                                                                             [16;1H~                                                                                                                                                                             [17;1H~                                                                                                                                                                             [18;1H~                                                                                                                                                                             [19;1H~                                                                                                                                                                             [20;1H~                                                                                                                                                                             [21;1H~                                                                                                                                                                             [22;1H~                                                                                                                                                                             [23;1H~                                                                                                                                                                             [24;1H~                                                                                                                                                                             [25;1H~                                                                                                                                                                             [26;1H~                                                                                                                                                                             [27;1H~                                                                                                                                                                             [28;1H~                                                                                                                                                                             [29;1H~                                                                                                                                                                             [30;1H~                                                                                                                                                                             [31;1H~                                                                                                                                                                             [32;1H~                                                                                                                                                                             [33;1H~                                                                                                                                                                             [34;1H~                                                                                                                                                                             [35;1H~                                                                                                                                                                             [36;1H~                                                                                                                                                                             [37;1H~                                                                                                                                                                             [38;1H~                                                                                                                                                                             [39;1H~                                                                                                                                                                             [40;1H~                                                                                                                                                                             [41;1H~                                                                                                                                                                             [42;1H~                                                                                                                                                                             [43;1H~                                                                                                                                                                             [44;1H~                                                                                                                                                                             [45;1H~                                                                                                                                                                             [46;1H~                                                                                                                                                                             [47;1H~                                                                                                                                                                             [48;1H~                                                                                                                                                                             [49;1H~                                                                                                                                                                             [50;1H~                                                                                                                                                                             [51;1H~                                                                                                                                                                             [52;1H~                                                                                                                                                                             [53;1H~                                                                                                                                                                             [54;1H~                                                                                                                                                                             [55;1H~                                                                                                                                                                             [56;1H~                                                                                                                                                                             [57;1H~                                                                                                                                                                             [58;1H~                                                                                                                                                                             [59;1H~                                                                                                                                                                             [60;1H~                                                                                                                                                                             [61;1H~                                                                                                                                                                             [62;1H~                                                                                                                                                                             [63;1H~                                                                                                                                                                             [64;1H~                                                                                                                                                                             [65;1H~                                                                                                                                                                             [66;1H~                                                                                                                                                                             [67;1H~                                                                                                                                                                             [68;1H~                                                                                                                                                                             [69;1H~                                                                                                                                                                             [m[70;157H0,0-1[9CAll[1;5H[70;1H[38;5;130m-- INSERT --[m[70;13H[K[70;157H0,1[11CAll[1;5H[33m [m#[70;157H1,2[1;6H#i[70;159H3[1;7H[38;5;130min[m[70;159H4[1;8Hinc[70;159H5[1;9Hcl[70;159H6[1;10Hlu[70;159H7[1;11Hud[70;159H8[1;12Hde[70;159H9[1;13H[70;159H10[1;14H M[70;160H1[1;15H[1;14H[K[70;160H0[1;14H[1;5H[91m#include <[m[70;160H1[1;15H[91m<[mi[70;160H2[1;16Hio[70;160H3[1;17H[38;5;130mios[m[70;160H4[1;18Hiost[70;160H5[1;19Htr[70;160H6[1;20Hre[70;160H7[1;21Hea[70;160H8[1;22H[1;15H[32miostream[m[70;160H9[1;23H[1;14H[36m<iostream>[m[70;159H20[1;24H[70;160H1[1;25H u[70;160H2[1;26H[1;25H[K[70;160H1[1;25H[70;160H0[1;24H
+[33m  2 [m[2;5H[K[70;157H2,1 [2;5H[33m [mu[70;159H2[2;6Hus[70;159H3[2;7Hsi[70;159H4[2;8Hin[70;159H5[2;9H[38;5;81musing[m[70;159H6[2;10H[70;159H7[2;11H n[70;159H8[2;12Hna[70;159H9[2;13Ham[70;159H10[2;14Hme[70;160H1[2;15Hes[70;160H2[2;16Hsp[70;160H3[2;17Hpa[70;160H4[2;18Hac[70;160H5[2;19H[2;11H[92mnamespace[m[70;160H6[2;20H[70;160H7[2;21H s[70;160H8[2;22Hst[70;160H9[2;23H[38;5;130mstd[m[70;159H20[2;24H[38;5;130md[m;[70;160H1[2;25H
+[33m  3 [m[3;5H[K[70;157H3,1 [3;5H[33m [mi[70;159H2[3;6H[38;5;130min[m[70;159H3[3;7H[32mint[m[70;159H4[3;8H[70;159H5[3;9H m[70;159H6[3;10Hma[70;159H7[3;11Hai[70;159H8[3;12Hin[70;159H9[3;13H[38;5;130mmain[m([70;159H10[3;14H()[46m()[m[70;160H1[3;15H[46m)[m{()[70;160H2[3;16H
+[33m  4 [m[4;5H[K[70;157H4,1 [4;5H
+[33m  5 [m[5;5H[K[70;157H5[5;5H[33m [m}[3;15H[46m{[5;5H}[m[70;159H2[5;6H[3;15H{[5;5H}[70;157H4,1[4;5H[70;159H2-9[4;13H c[70;159H3-10[4;14Hco[70;159H4-11[4;15Hou[70;159H5-12[4;16H[38;5;130mcout[m[70;159H6-13[4;17H[70;159H7-14[4;18H <[70;159H8-15[4;19H<<[70;159H9-16[4;20H[70;159H10-17[4;21H [36m"[m[70;160H1-18[4;22H[36m"h[m[70;160H2-19[4;23H[36mhe[m[70;160H3-20[4;24H[36mel[m[70;160H4-21[4;25H[36mll[m[70;160H5-22[4;26H[36mlo[m[70;160H6-23[4;27H[36m [m[70;160H7-24[4;28H[36m w[m[70;160H8-25[4;29H[36mwo[m[70;160H9-26[4;30H[36mor[m[70;159H20-27[4;31H[36mrl[m[70;160H1-28[4;32H[36mld[m[70;160H2-29[4;33H[36md![m[70;160H3-30[4;34H[36m!"[m[70;160H4-31[4;35H[70;160H5-32[4;36H <[70;160H6-33[4;37H<<[70;160H7-34[4;38H[70;160H8-35[4;39H e[70;160H9-36[4;40Hen[70;159H30-37[4;41Hnd[70;160H1-38[4;42H[38;5;130mendl[m[70;160H2-39[4;43H[38;5;130ml[m;[70;160H3-40[4;44H[5;5H[K[6;1H[33m  6 [m}[6;6H[K[70;157H5,1    [5;5H[70;159H2-9[5;13H[70;159H3-17[5;21H[70;159H2-9 [5;13H r[70;159H3-10[5;14Hre[70;159H4-11[5;15Het[70;159H5-12[5;16Htu[70;159H6-13[5;17Hur[70;159H7-14[5;18H[38;5;81mreturn[m[70;159H8-15[5;19H[70;159H9-16[5;20H [38;5;130m0[m[70;159H10-17[5;21H[38;5;130m0[m;[70;160H1-18[5;22H[70;1H[K[5;21H[70;157H5,10-17[7CAll[5;21H[70;157H[K[70;1H:wq"helloWorld.cpp" [New] 6L, 99C written
+[?1l>[2J[?47l8jruel006@hammer.cs.ucr.edu$ cat helloWOr  orld.cpp
+#include <iostream>
+using namespace std;
+int main(){
+	cout << "hello world!" << endl;
+	return 0;
+}
+jruel006@hammer.cs.ucr.edu$ g++ helloWOr  orld  r ld.cpp -o hello
+jruel006@hammer.cs.ucr.edu$ hello > TEST
+jruel006@hammer.cs.ucr.edu$ cat TEST
+hello world!
+jruel006@hammer.cs.ucr.edu$ # Bug in g pro  gram where > ls -a > file1 > file1 2 > file2 3 .  > .....        > .... file      > file2 n onl    N  N only outputs to first file2 1 .  (i.e.e  file1)
+jruel006@hammer.cs.ucr.edu$ ls -a > fi 1 > f2 > f2 > f4 > f5
+jruel006@hammer.cs.ucr.edu$ cat f5
+jruel006@hammer.cs.ucr.edu$ cat f4
+jruel006@hammer.cs.ucr.edu$ caf t f4 3 2
+jruel006@hammer.cs.ucr.edu$ cat f2
+jruel006@hammer.cs.ucr.edu$ cat f1
+.
+..
+\
+append.txt
+bin
+cat.txt
+error.txt
+f1
+f2
+f4
+f5
+.git
+hello
+helloWorld.cpp
+LICENSE
+list.txt
+Makefile
+README.md
+src
+TEST
+test.cpp
+tests
+wordcount.txt
+jruel006@hammer.cs.ucr.edu$ ls -a
+.  ..  \  append.txt  bin  cat.txt  error.txt  f1  f2  f4  f5  .git  hello  helloWorld.cpp  LICENSE  list.txt  Makefile  README.md  src  TEST  test.cpp  tests	wordcount.txt
+jruel006@hammer.cs.ucr.edu$ exit
+~/Desktop/rshell
+jruel006@hammer $ exit[K[K[K[K#exited rshell
+~/Desktop/rshell
+jruel006@hammer $ #exti[K[Kiting script
+~/Desktop/rshell
+jruel006@hammer $ exit
+exit
+
+Script done on Sun 17 May 2015 10:04:56 PM PDT
