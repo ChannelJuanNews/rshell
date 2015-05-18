@@ -25,12 +25,15 @@ using namespace std;
 void DisplayUserHost(unsigned loopCounter){
 	
 	char * username = getlogin();
+	if (username == NULL){
+		perror("Error getting login");
+		exit(1);
+	}
 	std::cout << username;
 	char hostname[100];
 	int result;
 	
 	result = gethostname(hostname, 100);
-	
 	if (result == -1 && loopCounter < 1) {
 		perror("Could not retrieve host name");
 	}
@@ -107,7 +110,7 @@ int executeCommands(std::vector<char*> & vec){
 		//std::cout << "COMMAND IS: " << argv[0] << std::endl;	
 		if (argv[0] == EXIT) {return 0;}
 		if (-1 == execvp(argv[index], argv)){
-			//perror("There was an error in execvp");
+			perror("There was an error in execvp");
 			for (unsigned i = 0; i < vec.size(); i++){
 			std::cout << "-bash: " << argv[i] << ": command not found" << std::endl;
 			}
@@ -503,11 +506,20 @@ void piping(vector<vector<char*> >&v, int amtOfPipes){
 			exit(1);
 		}
 		else if (fid == 0){
-			dup2(fd_input,0);
-			if (i < amtOfPipes){
-				dup2(fdid[1], 1);
+			if (dup2(fd_input,0) == -1){
+				perror("stuff went wrong in dup2() in Piping");
+				exit(1);
 			}
-			close(fdid[0]);
+			if (i < amtOfPipes){
+				if (dup2(fdid[1], 1) == -1){
+					perror("Shit went wrong int dup2() at the end of pipng");
+					exit(1);
+				}
+			}
+			if (close(fdid[0]) == -1){
+				perror("Could not close in piping");
+				exit(1);
+			}
 			if (execvp(argv[0], argv) == -1){
 				perror("Failure in execvp in piping!");
 				exit(1);
@@ -515,8 +527,14 @@ void piping(vector<vector<char*> >&v, int amtOfPipes){
 			exit(1);
 		}
 		else {
-			wait(NULL);
-			close(fdid[1]);
+			if (wait(NULL) == -1){
+				perror("Error waiting on child");
+				exit(1);
+			}
+			if (close(fdid[1]) == -1){
+				perror("Error closing fdid[1]");
+				exit(1);
+			}
 			fd_input = fdid[0];
 		}
 	}
