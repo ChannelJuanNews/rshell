@@ -43,4 +43,18 @@ Alternatively, you can edit the makefile so it won't delete the `bin` directory 
 
 * The green color for executable files only works for a small amount of time. When make is ran, bin/ls is called on bin and all executable files are green. However succesive calls to ``bin/ls bin`` will result in a blue coloring, rather than green. 
 
+##Piping & I/O Redirection: Bugs, Behaviors and limitations
+
+* `ls -a > file1 > file2 > file3` : will only output to first file and not to the third one like bash handles that case.
+
+* Does NOT support any linkage between piping and I/O redirection
+(i.e. ` cat < existingInputFile | tr A-Z a-z | tee newOutputFile1 | tr a-z A-Z > newOutputFile2`)
+
+# Extra credit
+
+* `cat <<< "this is a test"`: works, as well with any variation of that that does not invlolve piping.
+(i.e. `grep this <<< "this is a test"` and `grep this <<< "this is a test" > outfile.txt`)
+* `g++ error.cpp 2> error.txt`: works, as well as any variant of that with any file descriptor with `>` and `>>`
+(i.e. `g++ helloWorld.cpp -o hello.out` && `hello.out 1> hello.txt`. hello.txt will now contain the output of hello.out) 
+
 NOTE: While this may not be a perfect implementation of an actual shell/terminal, it is pretty chill. If you would like to contribute to this just fork it and fix my bugs LOLOLOLOLOL
