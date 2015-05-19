@@ -27,14 +27,6 @@ int main(int argc, char * argv[] ) {
 	string commands;
 	unsigned loopCounter = 0;
 	
-	if (SIG_ERR == signal(SIGINT, handleSig)) {
-		perror("Trapping SIGINT");
-		exit(1);
-	}
-	if (SIG_ERR == signal(SIGTSTP, handleSig)) {
-		perror("Trapping SIGTSTP");
-		exit(1);
-	}
 	
 	while(true){
 	

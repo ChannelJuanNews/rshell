@@ -697,10 +697,6 @@ bool tokenizeInput(std::string commands){
 	// if exit then exit
 	if (strcmp(v.at(0), "exit") == 0){return true;}
 
-	// cmd goes here
-
-
-
 	if (containsLogic(v)){
 		//cout << "THE COMMANDS AREW: " << endl;
 		//printVec(v);
@@ -720,9 +716,10 @@ bool tokenizeInput(std::string commands){
 				if (strcmp(v.at(i),"|") == 0){amtOfPipes++;}
 			}
 			
+			//printVec(v);
 			vector<vector<char*> > Commands;
 			vector<char*> temp;
-		
+			
 			for (unsigned index = 0; index < v.size(); index++){
 				
 				if (strcmp(v.at(index),"|") != 0){
