@@ -696,6 +696,11 @@ bool tokenizeInput(std::string commands){
 	if (v.size() == 0){return false;}
 	// if exit then exit
 	if (strcmp(v.at(0), "exit") == 0){return true;}
+
+	// cmd goes here
+
+
+
 	if (containsLogic(v)){
 		//cout << "THE COMMANDS AREW: " << endl;
 		//printVec(v);

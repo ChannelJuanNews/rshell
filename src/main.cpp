@@ -14,8 +14,11 @@
 #include <cstdlib>
 #include <algorithm>
 #include "functions.h"
+#include <signal.h>
 
 using namespace std;
+
+
 
 int main(int argc, char * argv[] ) {
 		
@@ -23,6 +26,15 @@ int main(int argc, char * argv[] ) {
 	rshellMessage();
 	string commands;
 	unsigned loopCounter = 0;
+	
+	if (SIG_ERR == signal(SIGINT, handleSig)) {
+		perror("Trapping SIGINT");
+		exit(1);
+	}
+	if (SIG_ERR == signal(SIGTSTP, handleSig)) {
+		perror("Trapping SIGTSTP");
+		exit(1);
+	}
 	
 	while(true){
 	

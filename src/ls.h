@@ -233,7 +233,10 @@ void outputFilesL(vector<string> & v){
 			for (unsigned j = 0; j < v.size(); j++){
 				
 				unsigned MAX = 0;
-				stat(v.at(j).c_str(), &s);
+				if (stat(v.at(j).c_str(), &s) == -1){
+					perror("Error with stat in outputFilesL");
+					exit(1);
+				}
 				int holdSize = s.st_size;
 				while(holdSize > 0){
 				
@@ -245,7 +248,10 @@ void outputFilesL(vector<string> & v){
 				}
 				
 			}
-			stat(v.at(i).c_str(), &s);
+			if(stat(v.at(i).c_str(), &s) == -1){
+				perror("Error with second stat in outputFilesL");
+				exit(1);
+			}
 			
 			struct passwd * pw = getpwuid(s.st_uid);
 			struct group  * gr = getgrgid(s.st_gid);
@@ -347,7 +353,10 @@ void outputFilesAL(vector<string> & v){
 		for (unsigned j = 0; j < v.size(); j++){
 			
 			unsigned MAX = 0;
-			stat(v.at(j).c_str(), &s);
+			if (stat(v.at(j).c_str(), &s) == -1){
+				perror(v.at(i).c_str());
+				exit(1);
+			}
 			int holdSize = s.st_size;
 			while(holdSize > 0){
 			
@@ -359,7 +368,10 @@ void outputFilesAL(vector<string> & v){
 			}
 			
 		}
-		stat(v.at(i).c_str(), &s);
+		if(stat(v.at(i).c_str(), &s) == -1){
+			perror("Error gatherin stat in outputFilesAL");
+			exit(1);
+		}
 		
 		struct passwd * pw = getpwuid(s.st_uid);
 		struct group  * gr = getgrgid(s.st_gid);
