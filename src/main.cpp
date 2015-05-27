@@ -19,6 +19,13 @@
 using namespace std;
 
 
+static void sigHandler(int signal, siginfo_t * signalInformation, void * randomPointer){
+	
+	
+	
+}
+
+struct sigaction act;
 
 int main(int argc, char * argv[] ) {
 		
@@ -27,6 +34,15 @@ int main(int argc, char * argv[] ) {
 	string commands;
 	unsigned loopCounter = 0;
 	
+	/*
+	memset(&act, '\0', NULL);
+	act.sa_sigaction = sigHandler;
+	act.sa_flags = SA_SIGINFO;
+	if (sigaction (SIGINT, &act, NULL) == -1){
+		perror("SIGINT sigaction");
+	}*/
+
+
 	
 	while(true){
 	
