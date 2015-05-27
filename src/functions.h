@@ -690,9 +690,14 @@ void printCWD(){
 	if (found != string::npos){
 		currDir.erase (currDir.begin(), currDir.begin()+found+user.size());
 		string home = "~";
-		if (currDir.size() == 0){home += "/";}
+		//if (currDir.size() == 0){home += "/";}
 		home = home + currDir;
-		cout << home << "$ ";
+		if (home == "~"){
+			cout << home << " $ ";
+		}
+		else {
+			cout << home << "$ ";
+		}
 	}
 	else {
 		cout << CWD << "$ ";
@@ -753,6 +758,7 @@ void cd(vector<char*> & v){
 		
 		for(unsigned i = 0; i < 1000; i++){memory[i] = '\0';}
 		OLDWD = getcwd(memory,1000);
+		// if the path is simple a tilde then go home
 		if (strcmp(v.at(1),"~") == 0 || strcmp(v.at(1),"~/") == 0){
 			if (chdir(getenv("HOME")) == -1){
 				perror("cd ~");
@@ -761,6 +767,25 @@ void cd(vector<char*> & v){
 			return;
 			
 		}
+		// if it's path that starts with ~/ and then has more
+		if (v.at(1)[0] == '~' && v.at(1)[1] == '/' && v.at(1)[2] != '\0'){
+			unsigned i = 2;
+			string dir = "";
+			while(v.at(1)[i] != '\0'){
+				dir+= v.at(1)[i];
+				i++;
+			}
+			if (chdir(getenv("HOME")) == -1){
+				perror("first cd");
+				return;	
+			}
+			if(chdir(dir.c_str()) == -1){
+				perror("second cd");
+				return;
+			}
+			return;
+		}
+		// if a path that doesn't include ~/ then proceed here
 		if (chdir(v.at(1)) == -1){
 			perror("cd <PATH>");
 			return;

@@ -28,7 +28,14 @@ static void sigHandler(int signal, siginfo_t * signalInformation, void * randomP
 		return;
 	}
 	if (signal == SIGINT){
-		wait(0); // this fixes a bug when calling a program with execvp and then stopping it with the sighandler
+		if(close(2) == -1){
+			perror("Error closing stdin");
+		}
+		
+		// this fixes a bug when calling a program with execvp and then stopping it with the sighandler
+		if(wait(0) == -1){
+			perror("error waiting in SIGINT");
+		}
 		cout << endl;
 		return;
 	}
@@ -42,8 +49,7 @@ static void sigHandler(int signal, siginfo_t * signalInformation, void * randomP
 	else {
 		cout << "Error! Cannot support this signal overloading!" << endl;
 		return;
-	}
-	
+	}	
 }
 
 int main(int argc, char * argv[] ) {		
@@ -64,11 +70,10 @@ int main(int argc, char * argv[] ) {
 	
 	if (sigaction(SIGCHLD, &NewAct, &OldAct) == -1){ // calls and error checks sighandler function for SIGCHLD 
 		perror("SIGCHLD sigaction");
-	}
-	
+	}	
 
-	//clearScreen();
-	//rshellMessage();
+	//clearScreen(); 	// this clears the screen
+	//rshellMessage();	// this sends out the rshell message
 	string commands = "";
 	unsigned loopCounter = 0;
 
@@ -79,13 +84,12 @@ int main(int argc, char * argv[] ) {
 		//DisplayUserHost(loopCounter);
 		getline(std::cin, commands);
 		if (commands == "exit"){
-		cout << "you have looped " << loopCounter << " times" << endl;
+			//cout << "Laters bruh" << endl;
+			//cout << "you have looped " << loopCounter << " times" << endl;
 			exit(0);
 		}
 		if (tokenizeInput(commands) == true){exit(0);}
 		loopCounter++;
 	}
-	
-	
 	return 0;
 }
