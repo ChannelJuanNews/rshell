@@ -663,6 +663,117 @@ string spaceCheck(string commands){
 	}
 	return newCommands;
 }
+
+string mutate(char * data){
+	return string(data);	
+}
+
+void printCWD(){
+
+	char * username = getlogin();
+	if (username == NULL){
+		perror("Error getting login");
+		exit(1);
+	}
+	string user = mutate(username);
+		
+	// this gets the current working directory and prints it
+	char buff[1000] = {0};
+	char * CWD;
+	CWD = getcwd(buff, 1000);
+	if (CWD == NULL){
+		perror("PRINT WORKING DIRECTORY");
+		exit(1);
+	}
+	string currDir = mutate(CWD);	
+	size_t found = currDir.find(user);
+	if (found != string::npos){
+		currDir.erase (currDir.begin(), currDir.begin()+found+user.size());
+		string home = "~";
+		if (currDir.size() == 0){home += "/";}
+		home = home + currDir;
+		cout << home << "$ ";
+	}
+	else {
+		cout << CWD << "$ ";
+	}
+}
+
+// global variables to be used for cd
+char memory [1000] = {0};
+char * OLDWD = '\0';	
+char home[3] = {'~','/','\0'};
+
+void cd(vector<char*> & v){
+	
+	// if only cd
+	if (v.size() == 1 && strcmp(v.at(0), "cd") == 0){
+		for(unsigned i = 0; i < 1000; i++){memory[i] = '\0';}
+		OLDWD = getcwd(memory, 1000);
+		if (chdir(getenv("HOME")) == -1){
+			perror("cd");
+			return;
+		}	
+	} // if got back to last path
+	else if (v.size() == 2 && strcmp(v.at(0),"cd") == 0 && strcmp(v.at(1), "-") == 0){
+
+		// if no previous directory then set to home
+		if (OLDWD == '\0'){OLDWD = home;}
+		
+		// get the current working directory
+		char newMem[1000] = {0};
+		char * NewWd = '\0';
+		NewWd = getcwd(newMem,1000);
+		
+		// move old directory into a string
+		string directory = "";
+		unsigned i = 0;
+		while(OLDWD[i] != '\0'){
+			directory+= OLDWD[i];
+			i++;
+		}
+
+		// set new directory to previously visted directory
+		if (chdir(directory.c_str()) == -1){
+			perror("cd -");
+			return;
+		}
+	
+		// set old directory to last visited directory;
+		for(unsigned i = 0; i < 1000; i++){
+			memory[i] = newMem[i];
+		}
+		unsigned k = 0;
+		while (NewWd[k] != '\0'){
+			OLDWD[k] = NewWd[k];
+			k++;
+		}
+	}
+	else if (v.size() == 2 && strcmp(v.at(0),"cd") == 0){
+		
+		for(unsigned i = 0; i < 1000; i++){memory[i] = '\0';}
+		OLDWD = getcwd(memory,1000);
+		if (strcmp(v.at(1),"~") == 0 || strcmp(v.at(1),"~/") == 0){
+			if (chdir(getenv("HOME")) == -1){
+				perror("cd ~");
+				return;
+			}
+			return;
+			
+		}
+		if (chdir(v.at(1)) == -1){
+			perror("cd <PATH>");
+			return;
+		}
+		
+	}
+	else {
+		cout << "Error! invalid arguments" << endl;
+		return;
+	}		
+}
+
+
 bool tokenizeInput(std::string commands){
 
 	std::vector<char *> v;
@@ -696,6 +807,13 @@ bool tokenizeInput(std::string commands){
 	if (v.size() == 0){return false;}
 	// if exit then exit
 	if (strcmp(v.at(0), "exit") == 0){return true;}
+
+	if (strcmp(v.at(0),"cd") == 0){
+		// goto cd function
+		cd(v);
+		return false;
+	}
+
 
 	if (containsLogic(v)){
 		//cout << "THE COMMANDS AREW: " << endl;

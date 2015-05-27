@@ -16,6 +16,8 @@ CpEXECUTABLE  = cp
 MvEXECUTABLE  = mv
 RmEXECUTABLE  = rm 
 
+RMDIR	      = rm -rfv bin
+
 #bin (binary) --> output executables go here
 #src          --> source code goes here
 #test         --> test code files go here
@@ -25,7 +27,8 @@ RmEXECUTABLE  = rm
 all: rshell ls cp mv rm
 	
 rshell:
-	
+	#removes bin	
+	$(RMDIR)
 	#echo "CREATED BIN DIRECTORY IN ROOT DIRECTORY"
 	mkdir bin
 	# goes to source folder where main.cpp is and compiles to executable named rshell
