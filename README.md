@@ -69,7 +69,7 @@ Alternatively, you can edit the makefile so it won't delete the `bin` directory 
 
 * when going to `home` directory you must place a `/` in front of home
 
-
+* `^C` signal works just fine. No known bugs.
 
 
 NOTE: While this may not be a perfect implementation of an actual shell/terminal, it is pretty chill. If you would like to contribute to this just fork it and fix my bugs LOLOLOLOLOL
