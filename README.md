@@ -65,7 +65,9 @@ Alternatively, you can edit the makefile so it won't delete the `bin` directory 
 
 * supports `cd -` commands to return to previous working directory
 
-# Known cd bugs
+* supports the `^C` command
+
+# Known cd && signal bugs
 
 * when going to `home` directory you must place a `/` in front of home
 
