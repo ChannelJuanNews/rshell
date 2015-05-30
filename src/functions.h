@@ -83,22 +83,24 @@ void rshellMessage() {
 	std::cout << "|                   Type the command 'exit' to exit rshell                    |" << std::endl;
 	std::cout << "===============================================================================" << std::endl;
 }
+pid_t wpid = 0;
+int status;
 // returns -1 if failed. otherwise returns 1
 int executeCommands(std::vector<char*> & vec){
 	
 	// supports up to 100,000 commands
 	char * argv[10000] = {0};
-	char EXIT[4] = {'e','x','i','t'};
+	char EXIT[5] = {'e','x','i','t','\0'};
 	
 	unsigned i;
 	for (i = 0; i < vec.size(); i++){ argv[i] = vec.at(i);}
 	argv[i+1] = NULL;
 	
+	if (argv[0] == EXIT){return 0;}
+		
 	int pid = fork();
 	unsigned index = 0;
 
-	if (argv[0] == EXIT){return 0;}
-	
 	if (pid == -1){
 		perror("There was an error with fork()");
 		exit(1);
@@ -118,16 +120,40 @@ int executeCommands(std::vector<char*> & vec){
 		}
 		exit(1);
 	}
-	else if (pid > 0){
-				
+	do{
+		wpid = wait(&status);
+	}while(wpid == -1 && errno == EINTR);
+	if(wpid == -1){perror("wait error"); return -1;}
+	/*else {		
 		if (wait(0) == -1){
 			perror("There was an error with wait() in the parent process");
 			return -1;
 		}
+	}*/
+
+
+
+	/*
+	else if (pid > 0){
+		
+		int wpid;
+		int status = 0;
+		do{
+			wpid = wait(&status);
+		}while(wpid == -1 && errno == EINTR);
+		if (wpid == -1){perror("wait error"); return -1;}
+		else {
+		
+			if (wait(0) == -1){
+				perror("There was an error with wait() in the parent process");
+				return -1;
+			}
+		}
 		if (argv[0] == EXIT){
 			return 0;
 		}
-	}
+	}*/
+
 	return 1;
 }
 void printVec(std::vector<char*> & v){
@@ -715,6 +741,7 @@ void cd(vector<char*> & v){
 	if (v.size() == 1 && strcmp(v.at(0), "cd") == 0){
 		for(unsigned i = 0; i < 1000; i++){memory[i] = '\0';}
 		OLDWD = getcwd(memory, 1000);
+		if (OLDWD == NULL){perror("OLDWD"); return;}
 		if (chdir(getenv("HOME")) == -1){
 			perror("cd");
 			return;
@@ -729,7 +756,7 @@ void cd(vector<char*> & v){
 		char newMem[1000] = {0};
 		char * NewWd = '\0';
 		NewWd = getcwd(newMem,1000);
-		
+		if (NewWd == NULL){perror("NewWd"); return;}
 		// move old directory into a string
 		string directory = "";
 		unsigned i = 0;
@@ -758,6 +785,7 @@ void cd(vector<char*> & v){
 		
 		for(unsigned i = 0; i < 1000; i++){memory[i] = '\0';}
 		OLDWD = getcwd(memory,1000);
+		if (OLDWD == NULL){perror("OLDWD");return;}
 		// if the path is simple a tilde then go home
 		if (strcmp(v.at(1),"~") == 0 || strcmp(v.at(1),"~/") == 0){
 			if (chdir(getenv("HOME")) == -1){
@@ -821,12 +849,16 @@ bool tokenizeInput(std::string commands){
 		//cout << modifiedCommands.at(i) << endl;
 		tokenArray[i] = modifiedCommands.at(i);
 	}
-
+	
+	//cout << "MOD COMMANDS: " << modifiedCommands << endl;
+	
 	token = strtok(tokenArray, deliminator);
 	while(token != NULL){
 		v.push_back(token);
 		token = strtok(NULL, deliminator);
 	}
+	
+	//printVec(v);
 	
 	// if only comments then no need to execute any commands, return
 	if (v.size() == 0){return false;}
@@ -913,7 +945,7 @@ bool tokenizeInput(std::string commands){
 		return false;
 	}
 	else {
-
+		printVec(v);
 		if (executeCommands(v) == 0){
 		}
 		return false;

@@ -21,28 +21,18 @@ using namespace std;
 static void sigHandler(int signal, siginfo_t * signalInformation, void * randomPointer){
 	
 	if (signal == SIGCHLD){
-		//kill (getpid(), SIGCHLD);
-		while (waitpid(-1, NULL, WNOHANG) > 0) {
-			exit(1);
-		}
+		//while (waitpid(-1, NULL, WNOHANG) > 0) {
+		//	exit(1);
+		//}
 		return;
 	}
 	if (signal == SIGINT){
-		if(close(2) == -1){
-			perror("Error closing stdin");
-		}
-		
-		// this fixes a bug when calling a program with execvp and then stopping it with the sighandler
-		if(wait(0) == -1){
-			perror("error waiting in SIGINT");
-		}
 		cout << endl;
 		return;
 	}
 	else if (signal == SIGTSTP){
-		// do ^Z stuff here	
+		// do ^Z stuff here
 		cout << endl;
-		system("bin/rshell");
 		raise(SIGSTOP);
 		return;
 	}

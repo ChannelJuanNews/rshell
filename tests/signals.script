@@ -1,0 +1,149 @@
+Script started on Fri 29 May 2015 10:06:41 PM PDT
+~
+jruel006@hammer $ cd Desktiop[K[K[Kop/rshell
+~/Desktop/rshell
+jruel006@hammer $ ls
+\  [0m[38;5;34ma.out[0m*  [38;5;27mbin[0m/  LICENSE  loop.cpp  Makefile  README.md  [38;5;27msrc[0m/  [38;5;27mtests[0m/
+[m~/Desktop/rshell
+jruel006@hammer $ binrs[K[K/rshell
+~/Desktop/rshell$ # I am not in my        ow in my rshell
+~/Desktop/rshell$ cd
+~ $ cd Desktop/rshell/src
+~/Desktop/rshell/src$ cd -
+~ $ cd Desktop/rsjell    hell
+~/Desktop/rshell$ cat loopc .cpp
+cat loop.cpp 
+
+#include <iostream>
+#include <unistd.h>
+
+using namespace std;
+
+int main(){
+	
+	while(1){
+		cout << "hello" << endl;
+		sleep(1);
+	}
+	
+	return 0;
+}
+~/Desktop/rshell$ g++ loop.cpp
+g++ loop.cpp 
+
+~/Desktop/rshell$ ./a.out
+./a.out 
+
+hello
+hello
+hello
+hello
+hello
+^C
+~/Desktop/rshell$ cat
+cat 
+
+asdf
+asdf
+asdf
+asdf
+asdf
+asdf
+^C
+~/Desktop/rshell$ c ls
+ls 
+
+\  a.out  bin  LICENSE	loop.cpp  Makefile  README.md  src  tests
+~/Desktop/rshell$ cd
+~ $ ls -a
+ls -a 
+
+.			cookies.sqlite-shm			  .eggcups		     .gnupg		      .mozilla		   secmod.db
+..			cookies.sqlite-wal			  .emacs.d		     .gstreamer-0.10	      .nautilus		   sessionCheckpoints.json
+addons.json		datareporting				  .evolution		     .gtkrc-1.2-gnome2	      .nx		   signons.sqlite
+addons.sqlite		.dbus					  extensions		     healthreport	      .openoffice.org	   SiteSecurityServiceState.txt
+addons.sqlite-journal	.DCOPserver_well.cs.ucr.edu__1006	  extensions.ini	     healthreport.sqlite      .parentlock	   startupCache
+.adobe			.DCOPserver_well.cs.ucr.edu_:1006	  extensions.json	     healthreport.sqlite-shm  permissions.sqlite   thumbnails
+.bash_history		.DCOPserver_well.cs.ucr.edu__1007	  extensions.sqlite	     healthreport.sqlite-wal  .pki		   times.json
+.bash_logout		.DCOPserver_well.cs.ucr.edu_:1007	  extensions.sqlite-journal  .ICEauthority	      places.sqlite	   .Trash
+.bashrc			.DCOPserver_well.cs.ucr.edu__1008	  .fontconfig		     izbicki.me		      places.sqlite-shm    .vim
+blocklist.xml		.DCOPserver_well.cs.ucr.edu_:1008	  formhistory.sqlite	     .kde		      places.sqlite-wal    .viminfo
+bookmarkbackups		.DCOPserver_well.cs.ucr.edu__1010	  .gconf		     key3.db		      pluginreg.dat	   .vimrc
+.cache			.DCOPserver_well.cs.ucr.edu_:1010	  .gconfd		     .lesshst		      prefs.js		   .vimrc.swp
+cache2			.DCOPserver_well.cs.ucr.edu__1011	  .gftp			     .local		      .procmailrc	   webapps
+_CACHE_CLEAN_		.DCOPserver_well.cs.ucr.edu_:1011	  .gitconfig		     localstore.rdf	      .profile		   webappsstore.sqlite
+cert8.db		.DCOPserver_well.cs.ucr.edu_localhost_26  .gitlearn		     logins.json	      .qt		   webappsstore.sqlite-shm
+chromeappsstore.sqlite	.DCOPserver_well.cs.ucr.edu_localhost:26  gmp			     .macromedia	      .recently-used.xbel  webappsstore.sqlite-wal
+compatibility.ini	Desktop					  gmp-gmpopenh264	     .mcop		      .redhat		   .Xauthority
+.config			directoryLinks.json			  .gnome		     .mcoprc		      revocations.txt	   xulstore.json
+content-prefs.sqlite	.dmrc					  .gnome2		     .metacity		      safebrowsing
+cookies.sqlite		Downloads				  .gnome2_private	     mimeTypes.rdf	      search.json
+~ $ cd ./Desktip  op
+~/Desktop$ ls
+ls 
+
+a.out	    assn5_template.asm	 assn6.asm~	      assn8.asm   CS100_lab5  firstrepo		  juan.asm   README.md	trash.desktop
+assn5.asm   assn5_template.asm~  assn6_template.asm   Baldo.asm~  dan.asm     forkTest		  juan.asm~  rshell	ucr-cs061
+assn5.asm~  assn6.asm		 assn6_template.asm~  CS061	  dan.asm~    handle_signals.cpp  perl	     RSHELL	ucr-cs100
+~/Desktop$ cd Dek sktop/ 
+cd <PATH>: No such file or directory
+~/Desktop$ cd rshell
+~/Desktop/rshell$ cd ./ /../Desktop
+cd <PATH>: No such file or directory
+~/Desktop/rshell$ cd ../Desktop
+cd <PATH>: No such file or directory
+~/Desktop/rshell$ cd ..
+~/Desktop$ ls
+ls 
+
+a.out	    assn5_template.asm	 assn6.asm~	      assn8.asm   CS100_lab5  firstrepo		  juan.asm   README.md	trash.desktop
+assn5.asm   assn5_template.asm~  assn6_template.asm   Baldo.asm~  dan.asm     forkTest		  juan.asm~  rshell	ucr-cs061
+assn5.asm~  assn6.asm		 assn6_template.asm~  CS061	  dan.asm~    handle_signals.cpp  perl	     RSHELL	ucr-cs100
+~/Desktop$ cd ..
+~ $ ls
+ls 
+
+addons.json	       chromeappsstore.sqlite  directoryLinks.json	  gmp			   localstore.rdf      prefs.js			     startupCache
+addons.sqlite	       compatibility.ini       Downloads		  gmp-gmpopenh264	   logins.json	       revocations.txt		     thumbnails
+addons.sqlite-journal  content-prefs.sqlite    extensions		  healthreport		   mimeTypes.rdf       safebrowsing		     times.json
+blocklist.xml	       cookies.sqlite	       extensions.ini		  healthreport.sqlite	   permissions.sqlite  search.json		     webapps
+bookmarkbackups        cookies.sqlite-shm      extensions.json		  healthreport.sqlite-shm  places.sqlite       secmod.db		     webappsstore.sqlite
+cache2		       cookies.sqlite-wal      extensions.sqlite	  healthreport.sqlite-wal  places.sqlite-shm   sessionCheckpoints.json	     webappsstore.sqlite-shm
+_CACHE_CLEAN_	       datareporting	       extensions.sqlite-journal  izbicki.me		   places.sqlite-wal   signons.sqlite		     webappsstore.sqlite-wal
+cert8.db	       Desktop		       formhistory.sqlite	  key3.db		   pluginreg.dat       SiteSecurityServiceState.txt  xulstore.json
+~ $ cd Desktop/../Desktop
+~/Desktop$ ls  cd home    /home
+/home$ pwd
+pwd 
+
+/home
+/home$ cd ~
+~ $ pwd
+pwd 
+
+/home/csmajs/jruel006
+~ $ cd Desjtio    ktop/rshell/src/ 
+~/Desktop/rshell/src$ cd -
+~ $ pwd
+pwd 
+
+/home/csmajs/jruel006
+~ $ pwd
+pwd 
+
+/home/csmajs/jruel006
+~ $ cd .
+~ $ cd /home/csmajs/r jruel006/Desktop/rshell
+~/Desktop/rshell$ pwd
+pwd 
+
+/home/csmajs/jruel006/Desktop/rshell
+~/Desktop/rshell$ ls
+ls 
+
+\  a.out  bin  LICENSE	loop.cpp  Makefile  README.md  src  tests
+~/Desktop/rshell
+
+jruel006@hammer $ exit
+
+Script done on Fri 29 May 2015 10:12:07 PM PDT

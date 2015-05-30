@@ -57,4 +57,19 @@ Alternatively, you can edit the makefile so it won't delete the `bin` directory 
 * `g++ error.cpp 2> error.txt`: works, as well as any variant of that with any file descriptor with `>` and `>>`
 (i.e. `g++ helloWorld.cpp -o hello.out` && `hello.out 1> hello.txt`. hello.txt will now contain the output of hello.out) 
 
+## New edition: cd and signals
+
+* `cd` command now supported! Alone it will return you to your `home` directory.
+
+* supports `cd <path>` to change to a directory in the path
+
+* supports `cd -` commands to return to previous working directory
+
+# Known cd bugs
+
+* when going to `home` directory you must place a `/` in front of home
+
+
+
+
 NOTE: While this may not be a perfect implementation of an actual shell/terminal, it is pretty chill. If you would like to contribute to this just fork it and fix my bugs LOLOLOLOLOL
