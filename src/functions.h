@@ -159,7 +159,7 @@ int executeCommands(std::vector<char*> & vec){
 void printVec(std::vector<char*> & v){
 	
 	for (unsigned i = 0; i < v.size(); i++){ std::cout << v.at(i) << " ";}
-	std::cout << std::endl << std::endl;
+	//std::cout << std::endl << std::endl;
 }
 std::string commentChecker(std::string commands){
 	
@@ -185,8 +185,8 @@ std::vector<char*> pop_front(std::vector<char *> v){
 			vec.push_back(v.at(i));
 		}
 	}
-	cout << "COMMANDS AFTER ONE POP_BACK: " << endl;
-	printVec(vec);
+	//cout << "COMMANDS AFTER ONE POP_BACK: " << endl;
+	//printVec(vec);
 	return vec;
 }
 void divideExecute(std::vector<char *> v){
@@ -208,12 +208,12 @@ void divideExecute(std::vector<char *> v){
 			CurrentCommand->push_back(v.at(i));
 			i++;
 		}
-		cout << "POP_BACK GONNA BE CALLED " << i << "times" << endl;
+		//cout << "POP_BACK GONNA BE CALLED " << i << "times" << endl;
 		for (unsigned k = 0; k < i; k++){
 			v = pop_front(v);
 		}
-		std::cout << "VECTOR AFTER POPPING OFF COMMANDS: ";
-		printVec(v);
+		//std::cout << "VECTOR AFTER POPPING OFF COMMANDS: ";
+		//printVec(v);
 		if (v.size() == 0){
 			executeCommands(*CurrentCommand);
 			divideExecute(v);
