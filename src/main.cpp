@@ -70,8 +70,8 @@ int main(int argc, char * argv[] ) {
 	while(true){
 		
 		cin.clear();
-		printCWD();
-		//DisplayUserHost(loopCounter);
+		//printCWD();
+		DisplayUserHost(loopCounter);
 		getline(std::cin, commands);
 		if (commands == "exit"){
 			//cout << "Laters bruh" << endl;
