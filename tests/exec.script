@@ -1,11 +1,131 @@
-Script started on Tue 09 Jun 2015 09:58:47 AM PDT
+Script started on Tue 09 Jun 2015 10:00:36 AM PDT
 ~
 jruel006@hammer $ cd Desktop/rshell
 ~/Desktop/rshell
-jruel006@hammer $ bin.rshe[K[K[K[K[K/rshell
-~/Desktop/rshell$ #e  ee xit
+jruel006@hammer $ bin/rshell
+jruel006@hammer.cs.ucr.edu$ #we are now in rshell
+jruel006@hammer.cs.ucr.edu$ ls
+\  bin	LICENSE  Makefile  README.md  src  tests
+ls jruel006@hammer.cs.ucr.edu$ ls la  -al
+total 40
+drwx------  6 jruel006 csmajs 4096 Jun  9 09:53 .
+drwx------ 12 jruel006 csmajs 4096 Jun  9 09:44 ..
+-rw-------  1 jruel006 csmajs  255 Jun  9 09:44 \
+drwx------  2 jruel006 csmajs 4096 Jun  9 09:53 bin
+drwx------  8 jruel006 csmajs 4096 Jun  9 09:52 .git
+-rw-------  1 jruel006 csmajs 1079 Jun  9 09:44 LICENSE
+-rw-------  1 jruel006 csmajs 1680 Jun  9 09:44 Makefile
+-rw-------  1 jruel006 csmajs 4078 Jun  9 09:44 README.md
+drwx------  2 jruel006 csmajs 4096 Jun  9 09:53 src
+drwx------  2 jruel006 csmajs 4096 Jun  9 09:53 tests
+ls -al jruel006@hammer.cs.ucr.edu$ la s -aaaaaaaaaaaaaaaaaaaaallllllllllllllllllllllllllll
+total 40
+drwx------  6 jruel006 csmajs 4096 Jun  9 09:53 .
+drwx------ 12 jruel006 csmajs 4096 Jun  9 09:44 ..
+-rw-------  1 jruel006 csmajs  255 Jun  9 09:44 \
+drwx------  2 jruel006 csmajs 4096 Jun  9 09:53 bin
+drwx------  8 jruel006 csmajs 4096 Jun  9 09:52 .git
+-rw-------  1 jruel006 csmajs 1079 Jun  9 09:44 LICENSE
+-rw-------  1 jruel006 csmajs 1680 Jun  9 09:44 Makefile
+-rw-------  1 jruel006 csmajs 4078 Jun  9 09:44 README.md
+drwx------  2 jruel006 csmajs 4096 Jun  9 09:53 src
+drwx------  2 jruel006 csmajs 4096 Jun  9 09:53 tests
+ls -aaaaaaaaaaaaaaaaaaaaallllllllllllllllllllllllllll jruel006@hammer.cs.ucr.edu$ #nice
+jruel006@hammer.cs.ucr.edu$ bin/rs      ls bin
+cp  ls	mv  rm	rshell
+ls bin jruel006@hammer.cs.ucr.edu$ ls
+\  bin	LICENSE  Makefile  README.md  src  tests
+ls jruel006@hammer.cs.ucr.edu$ ls    this command does not exits
+There was an error in execvp: No such file or directory
+this command does not exits -bash: this: command not found
+-bash: command: command not found
+-bash: does: command not found
+-bash: not: command not found
+-bash: exits: command not found
+jruel006@hammer.cs.ucr.edu$ pwd; ls
+/home/csmajs/jruel006/Desktop/rshell
+\  bin	LICENSE  Makefile  README.md  src  tests
+jruel006@hammer.cs.ucr.edu$ pwd && co  ls
+/home/csmajs/jruel006/Desktop/rshell
+\  bin	LICENSE  Makefile  README.md  src  tests
+jruel006@hammer.cs.ucr.edu$ pd wd "" ls     || ls
+/home/csmajs/jruel006/Desktop/rshell
+jruel006@hammer.cs.ucr.edu$ asdf; ls
+There was an error in execvp: No such file or directory
+-bash: asdf: command not found
+FAILED!
+\  bin	LICENSE  Makefile  README.md  src  tests
+jruel006@hammer.cs.ucr.edu$ asdf && ls
+There was an error in execvp: No such file or directory
+-bash: asdf: command not found
+FAILED!
+\  bin	LICENSE  Makefile  README.md  src  tests
+jruel006@hammer.cs.ucr.edu$ asdf || pwd
+There was an error in execvp: No such file or directory
+-bash: asdf: command not found
+/home/csmajs/jruel006/Desktop/rshell
+jruel006@hammer.cs.ucr.edu$ ls  pd wd ||   ; asdf
+/home/csmajs/jruel006/Desktop/rshell
+There was an error in execvp: No such file or directory
+-bash: asdf: command not found
+jruel006@hammer.cs.ucr.edu$ pwd   pwd && asdf
+/home/csmajs/jruel006/Desktop/rshell
+There was an error in execvp: No such file or directory
+-bash: asdf: command not found
+jruel006@hammer.cs.ucr.edu$ pwd || asdf
+/home/csmajs/jruel006/Desktop/rshell
+jruel006@hammer.cs.ucr.edu$ ls -a; echo hello && mkdir test || echo world; git status
+.  ..  \  bin  .git  LICENSE  Makefile	README.md  src	tests
+hello
+There was an error in execvp: No such file or directory
+-bash: world: command not found
+FAILED!
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+jruel006@hammer.cs.ucr.edu$ #the above does nto wor      ot work since my parsu  sing is weird
+jruel006@hammer.cs.ucr.edu$ bin/rshell
+jruel006@hammer.cs.ucr.edu$ 23  #23 are      we are now running rshell within rshell
+jruel006@hammer.cs.ucr.edu$ `ls -l||cat
+  ; rm -rf *`There was an error in execvp: No such file or directory
+`ls -l||cat -bash: `ls: command not found
+-bash: -l||cat: command not found
+jruel006@hammer.cs.ucr.edu$ ^[[A     ls -l||cat
+  ; rm -rf *terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+`ls -l||cat jruel006@hammer.cs.ucr.edu$ exit
+terminate called after throwing an instance of 'std::out_of_range'
+  what():  vector::_M_range_check
+bin/rshell jruel006@hammer.cs.ucr.edu$ exit
+jruel006@hammer.cs.ucr.edu$ #2e  we are now in the first rshell
+jruel006@hammer.cs.ucr.edu$ exi   exit    exit -asdf
+jruel006@hammer.cs.ucr.edu$ ls -l easdf    xit
+ls: cannot access exit: No such file or directory
+ls -l exit jruel006@hammer.cs.ucr.edu$ ls -l #this is a comment
+total 32
+-rw------- 1 jruel006 csmajs  255 Jun  9 09:44 \
+drwx------ 2 jruel006 csmajs 4096 Jun  9 09:53 bin
+-rw------- 1 jruel006 csmajs 1079 Jun  9 09:44 LICENSE
+-rw------- 1 jruel006 csmajs 1680 Jun  9 09:44 Makefile
+-rw------- 1 jruel006 csmajs 4078 Jun  9 09:44 README.md
+drwx------ 2 jruel006 csmajs 4096 Jun  9 09:53 src
+drwx------ 2 jruel006 csmajs 4096 Jun  9 09:56 test
+drwx------ 2 jruel006 csmajs 4096 Jun  9 09:53 tests
+ls -l jruel006@hammer.cs.ucr.edu$ #this is a comment
+jruel006@hammer.cs.ucr.edu$ ls -l#this is a comment
+total 32
+-rw------- 1 jruel006 csmajs  255 Jun  9 09:44 \
+drwx------ 2 jruel006 csmajs 4096 Jun  9 09:53 bin
+-rw------- 1 jruel006 csmajs 1079 Jun  9 09:44 LICENSE
+-rw------- 1 jruel006 csmajs 1680 Jun  9 09:44 Makefile
+-rw------- 1 jruel006 csmajs 4078 Jun  9 09:44 README.md
+drwx------ 2 jruel006 csmajs 4096 Jun  9 09:53 src
+drwx------ 2 jruel006 csmajs 4096 Jun  9 09:56 test
+drwx------ 2 jruel006 csmajs 4096 Jun  9 09:53 tests
+ls -l jruel006@hammer.cs.ucr.edu$ exit
 ~/Desktop/rshell
-jruel006@hammer $ clea[K[K[K[Kexit
+jruel006@hammer $ exit
 exit
 
-Script done on Tue 09 Jun 2015 09:59:05 AM PDT
+Script done on Tue 09 Jun 2015 10:07:24 AM PDT
